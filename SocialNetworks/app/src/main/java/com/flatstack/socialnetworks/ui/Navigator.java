@@ -1,0 +1,49 @@
+package com.flatstack.socialnetworks.ui;
+
+import android.support.v4.app.Fragment;
+
+import com.flatstack.socialnetworks.R;
+import com.flatstack.socialnetworks.authorization.FbLoginFragment;
+import com.flatstack.socialnetworks.authorization.TwitterLoginFragment;
+import com.flatstack.socialnetworks.authorization.VkLoginFragment;
+
+import java.lang.ref.WeakReference;
+
+/**
+ * Created by Ilya Eremin on 1/6/16.
+ */
+public class Navigator {
+    private static WeakReference<MainActivity> mainActivity;
+
+    public static void setUpActivity(MainActivity activity) {
+        mainActivity = new WeakReference<>(activity);
+    }
+
+    public static void mainScreen() {
+        replaceScreen(new MainFragment());
+    }
+
+    public static void vkLogin(){
+        replaceScreen(new VkLoginFragment());
+    }
+
+    private static void replaceScreen(Fragment fragment) {
+        if (mainActivity != null) {
+            MainActivity mainActivity = Navigator.mainActivity.get();
+            if (mainActivity != null) {
+                mainActivity.getSupportFragmentManager().beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.container, fragment)
+                    .commit();
+            }
+        }
+    }
+
+    public static void fbLogin() {
+        replaceScreen(new FbLoginFragment());
+    }
+
+    public static void twitterLogin() {
+        replaceScreen(new TwitterLoginFragment());
+    }
+}

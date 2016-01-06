@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id" translatable="false">123456789012345</string>
+    <string name="vk_app_id" translatable="false">1234567</string>
+    <string name="twitter_key" translatable="false">your_key</string>
+    <string name="twitter_secret" translatable="false">your_secret</string>
+</resources>
