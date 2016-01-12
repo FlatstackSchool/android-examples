@@ -34,4 +34,28 @@
         android:text="VK"
         />
 
+    <TextView
+        android:id="@+id/share_via_fb"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="Share Crazy text via FB"
+        />
+
+    <TextView
+        android:id="@+id/share_via_twitter"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="Share Crazy text via Twitter"
+        />
+
+    <TextView
+        android:id="@+id/share_via_vk"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="Share Crazy text via VK"
+        />
+
 </LinearLayout>
