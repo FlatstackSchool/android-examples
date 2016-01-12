@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id" translatable="false">123456789012345</string>
-    <string name="vk_app_id" translatable="false">1234567</string>
-    <string name="twitter_key" translatable="false">your_key</string>
-    <string name="twitter_secret" translatable="false">your_secret</string>
+    <string name="facebook_app_id" translatable="false">1659425290964502</string>
+    <string name="vk_app_id" translatable="false">5224432</string>
+    <string name="twitter_key" translatable="false">w07lljsndYrhWEvaFGmVwgkr9</string>
+    <string name="twitter_secret" translatable="false">BxH2D6Zdon9iiEFZ8Qik3TXrOtGrio52000RmEdykcXPvBPvS9</string>
 </resources>
