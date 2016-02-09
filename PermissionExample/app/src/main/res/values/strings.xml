@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PermissionExample</string>
+    <string name="library_version">Library version</string>
+    <string name="native_version">Native version</string>
 </resources>
