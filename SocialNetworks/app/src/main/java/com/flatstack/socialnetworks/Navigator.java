@@ -1,11 +1,12 @@
-package com.flatstack.socialnetworks.ui;
+package com.flatstack.socialnetworks;
 
 import android.support.v4.app.Fragment;
 
-import com.flatstack.socialnetworks.R;
 import com.flatstack.socialnetworks.authorization.FbLoginFragment;
 import com.flatstack.socialnetworks.authorization.TwitterLoginFragment;
 import com.flatstack.socialnetworks.authorization.VkLoginFragment;
+import com.flatstack.socialnetworks.ui.MainActivity;
+import com.flatstack.socialnetworks.ui.MainScreen;
 
 import java.lang.ref.WeakReference;
 
@@ -20,7 +21,7 @@ public class Navigator {
     }
 
     public static void mainScreen() {
-        replaceScreen(new MainFragment());
+        replaceScreen(new MainScreen());
     }
 
     public static void vkLogin(){

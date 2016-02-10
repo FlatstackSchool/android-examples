@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:text="Share Crazy text via FB"
+        android:text="Share text and with fb"
         />
 
     <TextView
