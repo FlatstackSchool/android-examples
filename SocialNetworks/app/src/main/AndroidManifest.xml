@@ -35,7 +35,7 @@
         <!--for sharing via facebook-->
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider{your_app_id}"
+            android:authorities="com.facebook.app.FacebookContentProvider1659425290964502"
             android:exported="true"
             />
 
