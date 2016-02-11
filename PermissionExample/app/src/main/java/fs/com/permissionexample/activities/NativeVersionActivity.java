@@ -1,4 +1,4 @@
-package fs.com.permissionexample;
+package fs.com.permissionexample.activities;
 
 import android.Manifest;
 import android.content.ContentProviderOperation;
@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fs.com.permissionexample.R;
+import fs.com.permissionexample.utils.ContactHelper;
 
 /**
  * Created by Ramil on 09/02/16.
@@ -27,7 +29,6 @@ import butterknife.OnClick;
 public class NativeVersionActivity extends AppCompatActivity {
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
-    private static final String TAG = "Contacts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class NativeVersionActivity extends AppCompatActivity {
             case REQUEST_CODE_ASK_PERMISSIONS:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    insertContact();
+                    ContactHelper.insertContact(this);
                 } else {
                     // Permission Denied
                     Toast.makeText(NativeVersionActivity.this, "WRITE_CONTACTS Denied", Toast.LENGTH_SHORT)
@@ -73,7 +74,7 @@ public class NativeVersionActivity extends AppCompatActivity {
                     REQUEST_CODE_ASK_PERMISSIONS);
             return;
         }
-        insertContact();
+        ContactHelper.insertContact(this);
     }
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
@@ -83,38 +84,5 @@ public class NativeVersionActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
-    }
-
-    private void insertContact() {
-        // Two operations are needed to insert a new contact.
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(2);
-
-        // First, set up a new raw contact.
-        ContentProviderOperation.Builder op =
-                ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-                        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null);
-        operations.add(op.build());
-
-        // Next, set the name for the contact.
-        op = ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                .withValue(ContactsContract.Data.MIMETYPE,
-                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-                        "CONTACT from runtime permissions sample");
-        operations.add(op.build());
-
-        // Apply the operations.
-        ContentResolver resolver = getContentResolver();
-        try {
-            resolver.applyBatch(ContactsContract.AUTHORITY, operations);
-            Toast.makeText(NativeVersionActivity.this, "WRITE_CONTACTS Complete", Toast.LENGTH_SHORT)
-                    .show();
-        } catch (RemoteException e) {
-            Log.d(TAG, "Could not add a new contact: " + e.getMessage());
-        } catch (OperationApplicationException e) {
-            Log.d(TAG, "Could not add a new contact: " + e.getMessage());
-        }
     }
 }

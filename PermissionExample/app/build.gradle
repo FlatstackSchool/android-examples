@@ -25,7 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
 
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile('com.github.afollestad:assent:0.2.0') {
-        transitive = true
-    }
+    compile 'com.karumi:dexter:2.2.1'
 }
