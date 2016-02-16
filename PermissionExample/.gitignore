@@ -1,4 +1,7 @@
 /.idea/*
+/gradle/*
+gradlew
+gradlew.bat
 
 # Built application files
 *.apk
