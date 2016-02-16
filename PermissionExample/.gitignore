@@ -2,6 +2,7 @@
 /gradle/*
 gradlew
 gradlew.bat
+gradle.properties
 
 # Built application files
 *.apk
