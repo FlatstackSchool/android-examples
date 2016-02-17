@@ -8,17 +8,35 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+              android:gravity="center_horizontal"
+    >
 
-    <Button
-        android:id="@+id/btn_native"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/native_version" />
+        android:layout_gravity="center"
+        android:text="@string/main_label_take_permission_with"
+        />
 
     <Button
-        android:id="@+id/btn_library"
+        android:id="@+id/btn_custom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/library_version" />
+        android:text="@string/native_version"
+        />
+
+    <Button
+        android:id="@+id/btn_dexter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/library_version"
+        />
+
+    <Button
+        android:id="@+id/btn_rx_permission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_label_take_with_rxpermission"
+        />
 </LinearLayout>
