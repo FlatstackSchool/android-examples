@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_library) void openLibraryVersion() {
-        startActivity(new Intent(this, LibraryVersionActivity.class));
+        startActivity(new Intent(this, TakePermissionWithLibraryActivity.class));
     }
 
     @OnClick(R.id.btn_native) void openNativeVersion() {
-        startActivity(new Intent(this, NativeVersionActivity.class));
+        startActivity(new Intent(this, TakePermissionActivity.class));
     }
 }

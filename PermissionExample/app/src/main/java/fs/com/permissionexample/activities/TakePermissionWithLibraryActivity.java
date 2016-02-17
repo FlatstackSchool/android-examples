@@ -20,7 +20,7 @@ import fs.com.permissionexample.utils.ContactHelper;
 /**
  * Created by Ramil on 09/02/16.
  */
-public class LibraryVersionActivity extends AppCompatActivity {
+public class TakePermissionWithLibraryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,12 @@ public class LibraryVersionActivity extends AppCompatActivity {
         Dexter.checkPermission(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
-                ContactHelper.insertContact(LibraryVersionActivity.this);
+                ContactHelper.insertContact(TakePermissionWithLibraryActivity.this);
             }
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse response) {
-                Toast.makeText(LibraryVersionActivity.this, "WRITE_CONTACTS Denied", Toast.LENGTH_SHORT)
+                Toast.makeText(TakePermissionWithLibraryActivity.this, "WRITE_CONTACTS Denied", Toast.LENGTH_SHORT)
                         .show();
             }
 

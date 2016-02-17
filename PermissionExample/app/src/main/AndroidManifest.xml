@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.LibraryVersionActivity"/>
-        <activity android:name=".activities.NativeVersionActivity"/>
+        <activity android:name=".activities.TakePermissionWithLibraryActivity"/>
+        <activity android:name=".activities.TakePermissionActivity"/>
     </application>
 
 </manifest>
