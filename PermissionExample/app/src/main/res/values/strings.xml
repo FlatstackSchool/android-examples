@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">PermissionExample</string>
-    <string name="library_version">Library version</string>
-    <string name="native_version">Native version</string>
+    <string name="library_version">Take permission with Dexter library</string>
+    <string name="native_version">Take permission with handwrite code</string>
+
     <string name="add_contact">Add Contact</string>
+    <string name="main_label_take_permission_with">Take permission with:</string>
+    <string name="main_label_take_with_rxpermission">Take permission with RxPermission library</string>
 </resources>
