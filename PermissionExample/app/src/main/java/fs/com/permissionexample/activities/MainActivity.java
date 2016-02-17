@@ -17,11 +17,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.btn_library) void openLibraryVersion() {
+    @OnClick(R.id.btn_dexter) void openLibraryVersion() {
         startActivity(new Intent(this, TakePermissionWithLibraryActivity.class));
     }
 
-    @OnClick(R.id.btn_native) void openNativeVersion() {
+    @OnClick(R.id.btn_custom) void openNativeVersion() {
         startActivity(new Intent(this, TakePermissionActivity.class));
+    }
+
+    @OnClick(R.id.btn_rx_permission) void onRxPermissionClick(){
+        startActivity(new Intent(this, TakePermissionWithRxPermissionActivity.class));
     }
 }

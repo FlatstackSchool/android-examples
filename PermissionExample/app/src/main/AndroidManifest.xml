@@ -19,8 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.TakePermissionWithLibraryActivity"/>
         <activity android:name=".activities.TakePermissionActivity"/>
+        <activity android:name=".activities.TakePermissionWithLibraryActivity"/>
+        <activity android:name=".activities.TakePermissionWithRxPermissionActivity"/>
     </application>
 
 </manifest>
