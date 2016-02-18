@@ -11,7 +11,6 @@ Welcome to Android Examples!
 
 
 
-It was written by [Flatstack](http://www.flatstack.com) with the help of our
-[contributors](https://github.com/fs/android-examples/contributors)
+Сделано [Ramil Gabdrakhmanov](https://github.com/RamilGabdrakhmanov) && [Ilya Eremin](https://github.com/IlyaEremin)
 
 [<img src="http://www.flatstack.com/logo.svg" width="100"/>](http://www.flatstack.com)
