@@ -21,7 +21,7 @@ public class IconImageBehavior extends CoordinatorLayout.Behavior<CircleImageVie
     private float mFinalHeight;
     private float mStartHeight;
     private float mFinalXPosition;
-    private float mToolbarHeight;
+    private float mStatusBarHeight;
 
     @SuppressLint("PrivateResource")
     public IconImageBehavior(Context context, AttributeSet attrs) {
@@ -29,8 +29,7 @@ public class IconImageBehavior extends CoordinatorLayout.Behavior<CircleImageVie
         mFinalXPosition = context.getResources().getDimensionPixelOffset(R.dimen.abc_action_bar_content_inset_material)
                 + (mFinalHeight / 2);
 
-        mToolbarHeight = context.getResources()
-                .getDimensionPixelSize(context.getResources().getIdentifier("status_bar_height", "dimen", "android"));
+        mStatusBarHeight = getStatusBarHeight(context);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class IconImageBehavior extends CoordinatorLayout.Behavior<CircleImageVie
     public boolean onDependentViewChanged(CoordinatorLayout parent, CircleImageView child, View dependency) {
         initProperties(child, dependency);
 
-        int maxScrollDistance = (int) (mStartToolbarPosition - mToolbarHeight);
+        int maxScrollDistance = (int) (mStartToolbarPosition - mStatusBarHeight);
         float expandedPercentageFactor = dependency.getY() / maxScrollDistance;
 
         float distanceYToSubtract = ((mStartYPosition - mFinalYPosition)
@@ -78,5 +77,15 @@ public class IconImageBehavior extends CoordinatorLayout.Behavior<CircleImageVie
 
         if (mStartToolbarPosition == 0)
             mStartToolbarPosition = dependency.getY() + (dependency.getHeight() / 2);
+    }
+
+    public float getStatusBarHeight(Context context) {
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if(resourceId != 0) {
+            return context.getResources()
+                    .getDimensionPixelSize(resourceId);
+        } else {
+            return 50;
+        }
     }
 }
