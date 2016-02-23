@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity implements AppBarLayout.OnOf
         return true;
     }
 
+    /**
+     *
+     * @param offset showed how much has been scrolled AppBarLayout;
+     *               in this example offset changed from 0 to -XXX
+     */
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
