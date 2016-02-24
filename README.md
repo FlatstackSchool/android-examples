@@ -7,6 +7,9 @@ Welcome to Android Examples!
 
 2. **PermissionExample** - пример использования новой состемы разрешений 
 
+3. **CoordinatorLayout** - пример использования CoordinatorLayout
+
+
 
 
 
