@@ -26,7 +26,7 @@ android {
     }
 ```
 
-[![https://gyazo.com/61c278bfe57178bc1523f58aae6ea161](https://i.gyazo.com/61c278bfe57178bc1523f58aae6ea161.gif)](https://gyazo.com/61c278bfe57178bc1523f58aae6ea161)
+![](https://github.com/fs/android-examples/blob/master/PermissionExample/assert/perm_visual.gif?raw=true)
 
 Более подробную информаю можно прочитать [тут](http://inthecheesefactory.com/blog/things-you-need-to-know-about-android-m-permission-developer-edition/en)
 и [документации](http://developer.android.com/intl/ru/guide/topics/security/permissions.html)
