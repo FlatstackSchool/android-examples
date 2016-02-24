@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CoordinatorLayout</string>
+    <string name="fs_name">FlatStack</string>
+    <string name="core_values_subtitle">Ruby on Rails, iOS, Android development</string>
+    <string name="core_values_title">Our core values</string>
+    <string name="core_values">We believe that Flatstack is founded on the core values we share as humans
+        and partners in this company. These values represent what we want this company to stand for
+        and represent what we hold dear as a company. Flatstack is a diverse group of talented
+        individuals working towards a common goal, and these core values are the ties that bind
+        us together as people and as colleagues.</string>
+    <string name="share">Share</string>
+</resources>
