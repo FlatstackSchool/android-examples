@@ -1,9 +1,12 @@
 package com.flatstack.socialnetworks;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.flatstack.socialnetworks.authorization.FbLoginFragment;
-import com.flatstack.socialnetworks.authorization.TwitterLoginFragment;
+import com.flatstack.socialnetworks.twitter.TwitterAuthActivity;
 import com.flatstack.socialnetworks.authorization.VkLoginFragment;
 import com.flatstack.socialnetworks.ui.MainActivity;
 import com.flatstack.socialnetworks.ui.MainScreen;
@@ -45,6 +48,12 @@ public class Navigator {
     }
 
     public static void twitterLogin() {
-        replaceScreen(new TwitterLoginFragment());
+        if (mainActivity != null && mainActivity.get() != null) {
+            mainActivity.get().startActivity(new Intent(mainActivity.get(), TwitterAuthActivity.class));
+        }
+    }
+
+    public static void vkAuthAndShare(@NonNull String link, @NonNull String title, @Nullable String imageUrl) {
+        replaceScreen(VkLoginFragment.shareAfter(link, title, imageUrl));
     }
 }

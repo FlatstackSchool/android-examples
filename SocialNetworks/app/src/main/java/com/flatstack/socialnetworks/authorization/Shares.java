@@ -4,22 +4,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareDialog;
+import com.flatstack.socialnetworks.Navigator;
+import com.flatstack.socialnetworks.utils.ImageDownloader;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
-import com.vk.sdk.api.VKApi;
-import com.vk.sdk.api.VKApiConst;
+import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKError;
-import com.vk.sdk.api.VKParameters;
-import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
+import com.vk.sdk.dialogs.VKShareDialogBuilder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,25 +32,19 @@ import java.net.URL;
  */
 public class Shares {
 
-    public static void facebook(String text, String link, Activity activity) {
+    public static void facebook(@NonNull String link,
+                                @NonNull String title,
+                                @Nullable String uriToImage,
+                                @NonNull Activity activity) {
         FacebookSdk.sdkInitialize(activity.getApplicationContext());
         ShareDialog shareDialog = new ShareDialog(activity);
-        ShareLinkContent content = new ShareLinkContent.Builder()
-            .setContentTitle(text)
-            .setImageUrl(Uri.parse("http://www.flatstack.com/logo.svg"))
-            .setContentUrl(Uri.parse(link)).build();
-        shareDialog.show(content);
-    }
-
-    public static void facebookLocalPhoto(Activity activity, Bitmap bitmap){
-        SharePhoto photo = new SharePhoto.Builder()
-            .setBitmap(bitmap)
-            .build();
-        SharePhotoContent content = new SharePhotoContent.Builder()
-            .addPhoto(photo)
-            .build();
-        ShareDialog dialog = new ShareDialog(activity);
-        dialog.show(content);
+        ShareLinkContent.Builder builder = new ShareLinkContent.Builder()
+            .setContentTitle(title)
+            .setContentUrl(Uri.parse(link));
+        if (!TextUtils.isEmpty(uriToImage)) {
+            builder.setImageUrl(Uri.parse(uriToImage));
+        }
+        shareDialog.show(builder.build());
     }
 
     public static void facebook(String link, Activity activity) {
@@ -58,54 +55,87 @@ public class Shares {
         shareDialog.show(content);
     }
 
-
-    public static void twitter(String link, Context context) {
+    /**
+     * We have problem here!
+     * We can't share web links or resources - only absolute path to local images (and you can't use resources or assets images)!
+     *
+     * @param uriToImage The image Uri should be a file Uri (i.e. file://absolute_path scheme) to a local file.
+     */
+    public static void twitter(@NonNull String link,
+                               @NonNull String title,
+                               @Nullable Uri uriToImage,
+                               @NonNull Context context) {
         try {
-            new TweetComposer.Builder(context)
-                .url(new URL(link)).show();
+            TweetComposer.Builder intentBuilder = new TweetComposer.Builder(context)
+                .url(new URL(link))
+                .text(title);
+            if (uriToImage != null) {
+                intentBuilder.image(uriToImage); // link to image into gallary, you cant use external link to http and similar
+            }
+            context.startActivity(intentBuilder.createIntent());
         } catch (MalformedURLException e) {
+            Toast.makeText(context, "Bad link: " + link, Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 
+    public static void vk(@NonNull final String link,
+                          @NonNull final String title,
+                          @Nullable final String url,
+                          final Activity context) {
+        VKAccessToken token = VKAccessToken.currentToken();
+        if (token == null) {
+            Navigator.vkAuthAndShare(link, title, url);
+            Toast.makeText(context, "You need to login via VK first", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-    /**
-     * We have problem here!
-     * We can't share web links or resources (but we can create image from resource on disk!)
-     *
-     * @param context
-     * @param uriToImage The image Uri should be a file Uri (i.e. file://absolute_path scheme) to a local file.
-     */
-    public static void twitterPicture(Context context, Uri uriToImage){
-        new TweetComposer.Builder(context)
-            .image(uriToImage)
-            .show();
+        if (!TextUtils.isEmpty(url)) {
+            // because I did not import RxJava
+            final Handler mainHandler = new Handler(context.getMainLooper());
+            Toast.makeText(context, "Wait matherfaca", Toast.LENGTH_SHORT).show();
+            AsyncTask.SERIAL_EXECUTOR.execute(new Runnable() {
+                @Override public void run() {
+                    final Bitmap snoopyBitmap = ImageDownloader.download(url, context);
+                    mainHandler.post(new Runnable() {
+                        @Override public void run() {
+                            _vk(link, title, snoopyBitmap, context);
+                        }
+                    });
+                }
+            });
+        } else {
+            _vk(link, title, null, context);
+        }
     }
 
-    public static void vkImage(Context context, Bitmap bitmap){
-        VKRequest request1 = VKApi.uploadWallPhotoRequest(new VKUploadImage(bitmap, VKImageParameters.jpgImage(0.9f)), 0, 0);
-        request1.executeWithListener(new VKRequest.VKRequestListener() {
-            @Override public void onComplete(VKResponse response) {
-                super.onComplete(response);
-            }
+    private static void _vk(@NonNull String link,
+                            @NonNull String title,
+                            @Nullable Bitmap bitmap,
+                            final Activity context) {
+        VKShareDialogBuilder vkShareDialogBuilder = new VKShareDialogBuilder()
+            .setAttachmentLink(title, link)
+            .setText(title);
+        if (bitmap != null) {
+            vkShareDialogBuilder
+                .setAttachmentImages(new VKUploadImage[]{
+                    new VKUploadImage(bitmap, VKImageParameters.jpgImage(.9f /* compression ratio */))
+                });
+        }
+        vkShareDialogBuilder
+            .setShareDialogListener(new VKShareDialogBuilder.VKShareDialogListener() {
+                @Override public void onVkShareComplete(int postId) {
+                    Toast.makeText(context, "Shared in vk with post id: " + postId, Toast.LENGTH_SHORT).show();
+                }
 
-            @Override public void onError(VKError error) {
-                super.onError(error);
-            }
-        });
-    }
+                @Override public void onVkShareCancel() {
+                }
 
-    public static void vk(String link, final Context context) {
-        VKRequest post = VKApi.wall().post(VKParameters.from(VKApiConst.MESSAGE, link));
-        post.executeWithListener(new VKRequest.VKRequestListener() {
-            @Override public void onComplete(VKResponse response) {
-                super.onComplete(response);
-                Toast.makeText(context, "successfully shared", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override public void onError(VKError error) {
-                super.onError(error);
-                Toast.makeText(context, "an error occured while sharing", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override public void onVkShareError(VKError error) {
+                    Toast.makeText(context, "share error" + error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            })
+            .show(((FragmentActivity) context).getSupportFragmentManager(), "VK_SHARE")
+        ;
     }
 }
