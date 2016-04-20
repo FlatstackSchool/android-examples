@@ -35,12 +35,13 @@ public class FbLoginFragment extends Fragment {
 
             @Override
             public void onCancel() {
-                // what TO DO on cancel?
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // what TO DO on error?
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
+                Toast.makeText(getActivity(), exception.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         super.onCreate(savedState);
