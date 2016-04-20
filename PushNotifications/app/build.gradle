@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.ilyaeremin.pushnotifications"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'flatstack123'
+            keyAlias 'flatstack'
+            keyPassword 'flatstack123'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+}
