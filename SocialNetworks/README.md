@@ -41,6 +41,12 @@
 * Если ты используешь `TwitterComposer` без cards (на момент написания они в экспериментальном режиме и не понятна цель cards, картинку через них шарить не получается) для шейринга, то я выделил его в отдельный класс, чтобы можно было избавиться от gradle зависимости и инициализации в Application классе. Я оставил в нем только методы, необходимые для создания `Intent` (если есть приложение, то для него, иначе в браузер).
 * Большая часть из vksdk_library не используется. Feel free to clean it up (хотя proguard в любом случае сделает это).
 
+##### Scopes
+* Для twitter все права указываются в настройках проекта на apps.twitter.com в секции permissions
+* Список прав для facebook [official site](https://developers.facebook.com/docs/facebook-login/permissions)
+* Список прав для vk можно посмотреть здесь [official github page](https://github.com/VKCOM/vk-android-sdk/blob/master/vksdk_library/src/main/java/com/vk/sdk/VKScope.java).
+В гайде указано в какое место их надо вставлять, см класс VkLoginActivity
+
 ###### TODO
 * Дернуть пример из ASNE чтобы твиттер работал в любых обстоятельствах
 * Получения токена от гугла
