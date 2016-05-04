@@ -1,4 +1,4 @@
-package com.flatstack.socialnetworks.authorization;
+package com.flatstack.socialnetworks;
 
 import android.content.Intent;
 import android.os.Bundle;

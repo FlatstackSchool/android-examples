@@ -1,4 +1,4 @@
-package com.flatstack.socialnetworks.twitter;
+package com.flatstack.socialnetworks;
 
 import android.content.Context;
 import android.content.Intent;

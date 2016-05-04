@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.flatstack.socialnetworks.Navigator;
 import com.flatstack.socialnetworks.R;
-import com.flatstack.socialnetworks.authorization.Shares;
+import com.flatstack.socialnetworks.Shares;
 
 /**
  * Created by Ilya Eremin on 1/6/16.

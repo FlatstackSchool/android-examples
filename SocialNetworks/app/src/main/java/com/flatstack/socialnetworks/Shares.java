@@ -1,4 +1,4 @@
-package com.flatstack.socialnetworks.authorization;
+package com.flatstack.socialnetworks;
 
 import android.app.Activity;
 import android.content.Context;
@@ -81,22 +81,22 @@ public class Shares {
 
     public static void vk(@NonNull final String link,
                           @NonNull final String title,
-                          @Nullable final String url,
+                          @Nullable final String urlToImage,
                           final Activity context) {
         VKAccessToken token = VKAccessToken.currentToken();
         if (token == null) {
-            Navigator.vkAuthAndShare(link, title, url);
+            Navigator.vkAuthAndShare(link, title, urlToImage);
             Toast.makeText(context, "You need to login via VK first", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!TextUtils.isEmpty(url)) {
+        if (!TextUtils.isEmpty(urlToImage)) {
             // because I did not import RxJava
             final Handler mainHandler = new Handler(context.getMainLooper());
             Toast.makeText(context, "Wait matherfaca", Toast.LENGTH_SHORT).show();
             AsyncTask.SERIAL_EXECUTOR.execute(new Runnable() {
                 @Override public void run() {
-                    final Bitmap snoopyBitmap = ImageDownloader.download(url, context);
+                    final Bitmap snoopyBitmap = ImageDownloader.download(urlToImage, context);
                     mainHandler.post(new Runnable() {
                         @Override public void run() {
                             _vk(link, title, snoopyBitmap, context);

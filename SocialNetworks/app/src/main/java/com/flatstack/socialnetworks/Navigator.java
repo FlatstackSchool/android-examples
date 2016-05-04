@@ -5,9 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.flatstack.socialnetworks.authorization.FbLoginFragment;
-import com.flatstack.socialnetworks.twitter.TwitterAuthActivity;
-import com.flatstack.socialnetworks.authorization.VkLoginFragment;
 import com.flatstack.socialnetworks.ui.MainActivity;
 import com.flatstack.socialnetworks.ui.MainScreen;
 

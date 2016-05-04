@@ -48,7 +48,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
-        <activity android:name=".twitter.TwitterAuthActivity"/>
+        <activity android:name=".TwitterAuthActivity"/>
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.flatstack.socialnetworks.authorization;
+package com.flatstack.socialnetworks;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.flatstack.socialnetworks.R;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
