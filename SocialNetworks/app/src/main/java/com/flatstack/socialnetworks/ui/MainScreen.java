@@ -26,17 +26,17 @@ public class MainScreen extends Fragment {
     @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         view.findViewById(R.id.vk).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Navigator.vkLogin();
+                Navigator.vkLogin(getActivity());
             }
         });
         view.findViewById(R.id.facebook).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Navigator.fbLogin();
+                Navigator.fbLogin(getActivity());
             }
         });
         view.findViewById(R.id.twitter).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                Navigator.twitterLogin();
+                Navigator.twitterLogin(getActivity());
             }
         });
         view.findViewById(R.id.share_via_fb).setOnClickListener(new View.OnClickListener() {

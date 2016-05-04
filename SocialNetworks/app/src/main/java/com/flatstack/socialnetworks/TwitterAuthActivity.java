@@ -51,8 +51,8 @@ public class TwitterAuthActivity extends AppCompatActivity {
     }
 
     private void authorizeWithTwitter(TwitterAuthToken authToken) {
-        Toast.makeText(TwitterAuthActivity.this, "token is :" + authToken.token, Toast.LENGTH_SHORT)
-            .show();
+        Toast.makeText(TwitterAuthActivity.this, "token is :" + authToken.token, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {

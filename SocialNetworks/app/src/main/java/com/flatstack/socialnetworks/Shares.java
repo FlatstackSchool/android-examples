@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.flatstack.socialnetworks.Navigator;
 import com.flatstack.socialnetworks.utils.ImageDownloader;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 import com.vk.sdk.VKAccessToken;
@@ -85,7 +84,7 @@ public class Shares {
                           final Activity context) {
         VKAccessToken token = VKAccessToken.currentToken();
         if (token == null) {
-            Navigator.vkAuthAndShare(link, title, urlToImage);
+            Navigator.vkAuthAndShare(link, title, urlToImage, context);
             Toast.makeText(context, "You need to login via VK first", Toast.LENGTH_SHORT).show();
             return;
         }

@@ -1,13 +1,10 @@
 package com.flatstack.socialnetworks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.vk.sdk.VKAccessToken;
@@ -19,7 +16,7 @@ import com.vk.sdk.api.VKError;
 /**
  * Created by Ilya Eremin on 1/6/16.
  */
-public class VkLoginFragment extends Fragment {
+public class VkLoginActivity extends AppCompatActivity {
 
     private static final String KEY_FIRST_LAUNCH = "firstLaunch";
 
@@ -32,14 +29,12 @@ public class VkLoginFragment extends Fragment {
 
     private boolean closeScreen;
 
-    public static VkLoginFragment shareAfter(String link, String text, String imageUrl) {
-        VkLoginFragment f = new VkLoginFragment();
-        Bundle args = new Bundle();
-        args.putString(KEY_LINK, link);
-        args.putString(KEY_IMAGE_URL, imageUrl);
-        args.putString(KEY_TEXT, text);
-        f.setArguments(args);
-        return f;
+    public static void shareAfter(String link, String text, String imageUrl, Context context) {
+        Intent intent = new Intent(context, VkLoginActivity.class);
+        intent.putExtra(KEY_LINK, link);
+        intent.putExtra(KEY_IMAGE_URL, imageUrl);
+        intent.putExtra(KEY_TEXT, text);
+        context.startActivity(intent);
     }
 
     private String link;
@@ -54,8 +49,8 @@ public class VkLoginFragment extends Fragment {
 
     @Override public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        if (getArguments() != null) {
-            parseArguments(getArguments());
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            parseArguments(getIntent().getExtras());
         }
         if (savedState != null) {
             firstLaunch = savedState.getBoolean(KEY_FIRST_LAUNCH, true);
@@ -66,32 +61,35 @@ public class VkLoginFragment extends Fragment {
             // if you want to post on a user wall then you need WALL permission
             // if you want post with image, then you also need PHOTOS permission
             VKSdk.logout();
-            VKSdk.login(this, VKScope.WALL, VKScope.PHOTOS);
+            VKSdk.login(this, getPermissions());
             firstLaunch = false;
         }
+    }
+
+    /**
+     * Список необходимых для публикации с фото на стене пользователя
+     * Список всех прав можно увидеть в классе VKScope
+     */
+    @NonNull private String[] getPermissions() {
+        return new String[]{VKScope.WALL, VKScope.PHOTOS};
     }
 
     @Override public void onResume() {
         super.onResume();
         if (closeScreen) {
-            getActivity().getSupportFragmentManager().popBackStackImmediate();
+            finish();
         }
-    }
-
-    @Nullable @Override public View onCreateView(LayoutInflater inflater,
-                                                 @Nullable ViewGroup container,
-                                                 @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.screen_social_auth, container, false);
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken token) {
-                Toast.makeText(getActivity(), "vk token here: " + token.accessToken, Toast.LENGTH_SHORT).show();
+                Toast.makeText(VkLoginActivity.this, "vk token here: " + token.accessToken, Toast.LENGTH_SHORT).show();
                 if (link != null) {
-                    Shares.vk(link, title, imageUrl, getActivity());
+                    Shares.vk(link, title, imageUrl, VkLoginActivity.this);
                 }
+                finish();
             }
 
             @Override
