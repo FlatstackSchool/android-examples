@@ -31,9 +31,15 @@
         android:id="@+id/write_with_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Write 10000"
+        android:text="Write 10000 with transaction"
         />
 
+    <Button
+        android:id="@+id/clear_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear db"
+        />
 
 
 </LinearLayout>

@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.ilyaeremin.activeandroidexample.models.Article;
 
 import java.util.ArrayList;
@@ -22,9 +24,10 @@ public class MainActivity extends AppCompatActivity {
         info = (TextView) findViewById(R.id.info);
 
         final List<Article> articles = new ArrayList<Article>();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             Article article = new Article();
             article.set_id(i);
+            articles.add(article);
         }
 
         findViewById(R.id.write_with_transaction).setOnClickListener(new View.OnClickListener() {
@@ -40,7 +43,25 @@ public class MainActivity extends AppCompatActivity {
                     ActiveAndroid.endTransaction();
                 }
                 long after = System.currentTimeMillis();
-                info.setText("writing complete onL: " + (after - before) + "seconds");
+                info.setText("writing 1000 objects with transation complete on: " + (after - before) + " millis");
+            }
+        });
+        findViewById(R.id.write).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                long before = System.currentTimeMillis();
+                for (Article article : articles) {
+                    article.save();
+                }
+                long after = System.currentTimeMillis();
+                info.setText("writing 1000 objects without transaction complete on: " + (after - before) + " millis");
+            }
+        });
+        findViewById(R.id.clear_db).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                long before = System.currentTimeMillis();
+                new Delete().from(Article.class).execute();
+                long after = System.currentTimeMillis();
+                Toast.makeText(MainActivity.this, "Done with " + (after - before) + " millis", Toast.LENGTH_SHORT).show();
             }
         });
     }

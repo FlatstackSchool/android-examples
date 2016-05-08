@@ -2,10 +2,9 @@
 ###### Временами не оч весело
 
 #### Причины
-ActiveAndroid работает на sqlite. Он дает удобную оболочку для работы с базой.
-Это подходит для приложений не требующих сложных запросов и максимальной скорости - то есть для большинства.
-Также стоит обратить внимание на Realm, SQLBrite (еще одна обертка над sqlite) и sqlite.
-
+ActiveAndroid (далее AA) дает удобную оболочку над sqlite.
+Он подходит для приложений не требующих сложных запросов и очень быстрых ответов - то есть для большинства.
+См также: стоит обратить внимание на [Realm](https://realm.io/docs/java/latest/), [SQLBrite](https://github.com/square/sqlbrite) (тоже обертка над sqlite от square && JackWharton) и sqlite.
 
 Это описание является выжимкой из [официального гайда](https://github.com/pardom/ActiveAndroid/wiki/Getting-started).
 И результатом моего опыта работы с ActiveAndroid
@@ -27,24 +26,22 @@ repositories {
 
 ```java
 Configuration.Builder configBuilder = new Configuration.Builder(app);
-configBuilder.setDatabaseName("example.db");
+configBuilder.setDatabaseName("your_db_name.db");
 configBuilder.setDatabaseVersion(1);
 ActiveAndroid.initialize(configBuilder.create());
 ```
 
-Добавить
-
-###### При обычной инициализации при старте ищутся классы, 
+###### При такой инициализации при старте ищутся классы,
 которые наследуются от `com.activeandroid.Model` 
-и `com.activeandroid.TypeSerializer` - это не самая быстрая операция. Поэтому есть другой способ инициализации - напрямую указать какие классы надо добавить.
-
+и `com.activeandroid.TypeSerializer` - это не самая быстрая операция и это здорово увеличивает cold startup time (до нескольких секунд с проектом в ~100 классов).
+Чтобы не делать этого, напрямую указываем какие классы необходимы для работы БД.
 
 ```java
 Configuration.Builder configBuilder = new Configuration.Builder(app);
 configBuilder.setDatabaseName("example.db");
 configBuilder.setDatabaseVersion(1);
-configBuilder.addModelClasses(Article.class, ArticleDetails.class);
-configBuilder.addTypeSerializers(ImageSerializer.class, SharingBarsSerializer.class, SharingSerializer.class);
+<b>configBuilder.addModelClasses(Article.class, ArticleDetails.class);
+configBuilder.addTypeSerializers(ImageSerializer.class, SharingBarsSerializer.class, SharingSerializer.class);</b>
 ActiveAndroid.initialize(configBuilder.create());
 
 ```
@@ -52,14 +49,13 @@ ActiveAndroid.initialize(configBuilder.create());
 ###### TypeSerializer
 Из коробки ActiveAndroid умеет записывать в базу все примитивы и String.
 Не умеет работать с массивами. Например, для `int[]` необходимо писать свой сериалайзер.
-Также, если у тебя есть объект, в котором есть вложенные объекты, которые не наследуются от `Model`,
+То есть, если у тебя есть объект с любыми полями отличными от них и которые не наследуются от `Model`,
 то тебе надо писать для них Serializer. Вкратце, надо написать правила для сериализации и десериализации.
 Хранить данные можно в любых примитивных форматах или в String. В этом проекте есть несколько примеров `TypeSerializer`.
 
-
-###### Предостережения
-Если объекты, которые наследуются от `Model` также сериализуются в json, то для Gson'а надо задать правило, не сериализовать 'final' поля.
-При работе с gson все равно нельзя иметь final поля в своих объектах. В целом, это оборачивается головной болью использовать два способа хранения.
+###### Парсинг в json
+Если объекты, которые наследуются от `Model` также сериализуются в json, то для Gson'а надо задать правило, не сериализовать\десериализовать 'final' поля.
+При работе с gson все равно нельзя иметь final поля в своих объектах, если только ты не используешь кастомный парсер.
 
 ###### Тесты
 При юнит тестировании с использованием объектов, которые `extends Model` возникнет ошибка `NPE at com.activeandroid.Cache.getTableInfo(Cache.java:148)` из-за того, что AA не инициализирован.
@@ -68,9 +64,9 @@ ActiveAndroid.initialize(configBuilder.create());
 
 ###### И наконец, как это использовать.
 Нужные классы наследуем от `Model` и добавляем к каждому аннотацию `@Table(name = "table name")`
-Далее помечаем каждое необходимое поле аннотацией `@Column`. _Важно!_ Не иметь полей с именем `id`, такое поле уже есть внутри `Model`.
-Если хочешь использовать свой id, то помечай поле `@Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)`
-Внутри `@Column` вообще много всяких настроек, мне пригождались то, что я тут описываю.
+Далее помечаем каждое необходимые для записи поля аннотацией `@Column`. _Важно!_ Не иметь полей с именем `id`, такое поле уже есть внутри `Model`.
+Если хочешь поле как уникальный идентификатор объекта, то помечай его `@Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)`
+Для аннотации `@Column` можно задать множество настроек.
 ```java
 @Table(name = "favorites")
 public class Article extends Model {
@@ -88,7 +84,7 @@ article.set_id(123);
 article.save();
 ```
 
-Для записи списков и массивов используй транзакции для ускорения:
+Для записи большого количества объектов используй транзакции (ускорение до 10 раз, запусти пример, проверь):
 ```java
 List<Article> articles = getArticles();
 ActiveAndroid.beginTransaction();
