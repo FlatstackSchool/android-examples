@@ -31,6 +31,28 @@ public class ColorPlaysScreen extends AppCompatActivity {
                 changeColor(Color.parseColor("#7F00FF"));
             }
         });
+        findViewById(R.id.rainbow).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
+                    Color.parseColor("#FF0000"),
+                    Color.parseColor("#FF7F00"),
+                    Color.parseColor("#FFFF00"),
+                    Color.parseColor("#00FF00"),
+                    Color.parseColor("#0000FF"),
+                    Color.parseColor("#4B0082"),
+                    Color.parseColor("#8B00FF")
+                );
+                colorAnimation.setDuration(3000); // milliseconds
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        target.setBackgroundColor((int) animator.getAnimatedValue());
+                    }
+
+                });
+                colorAnimation.start();
+            }
+        });
     }
 
     private void changeColor(final int finishColor) {
