@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
 import com.ilyaeremin.activeandroidexample.models.Article;
+import com.ilyaeremin.activeandroidexample.models.Block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 1000; i++) {
             Article article = new Article();
             article.set_id(i);
+            article.setBlocks(new ArrayList<Block>() {{
+                add(new Block("some text", "url"));
+                add(new Block("some text2", "url2"));
+            }});
+            article.setBlock(new Block("separate block", "some url"));
             articles.add(article);
         }
 
@@ -54,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 long after = System.currentTimeMillis();
                 info.setText("writing 1000 objects without transaction complete on: " + (after - before) + " millis");
+            }
+        });
+        findViewById(R.id.write_10_articles).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                for (int i = 0; i < 10; i++) {
+                    articles.get(i).save();
+                }
             }
         });
         findViewById(R.id.clear_db).setOnClickListener(new View.OnClickListener() {

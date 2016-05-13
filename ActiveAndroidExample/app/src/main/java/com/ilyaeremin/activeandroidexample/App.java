@@ -5,6 +5,7 @@ import android.app.Application;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.ilyaeremin.activeandroidexample.models.Article;
+import com.ilyaeremin.activeandroidexample.models.Block;
 import com.ilyaeremin.activeandroidexample.serializer.SharingLinksSerializer;
 
 /**
@@ -18,7 +19,7 @@ public class App extends Application {
 
     @SuppressWarnings("unchecked") private void initializeDb() {
         Configuration.Builder configBuilder = new Configuration.Builder(this);
-        configBuilder.addModelClasses(Article.class);
+        configBuilder.addModelClasses(Article.class, Block.class);
         configBuilder.addTypeSerializers(SharingLinksSerializer.class);
         configBuilder.setDatabaseName("example.db");
         configBuilder.setDatabaseVersion(1);
