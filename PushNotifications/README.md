@@ -1,8 +1,8 @@
 # Пример push notifications
 
 ## Настройка
-###### [Официальный путь](https://developers.google.com/cloud-messaging/android/client) - просто пошагово выполнять.
-###### Если в официальном пути возникают трудности:
+#### [Официальный путь](https://developers.google.com/cloud-messaging/android/client) - просто пошагово выполнять.
+#### Если в официальном пути возникают трудности:
 1. Идем на https://console.developers.google.com/apis/ логинимся под нужной почтой.
 2. Создаем проект
 3. В левом табе выбираем Обзор -> Mobile API -> Google Cloud Messaging включить
@@ -13,13 +13,23 @@
 
 ![instruction](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/steps.gif)   
 
-###### Ограничения
+#### Ограничения
 Пуши не будут приходить на устройства без google play services. Это не проблема, если ты распространяешь приложение только в google play.
 Для amazon также есть своя альтернатива GCM пушам (тут это не рассматривается).
 Можно написать свой push сервер, но это не самая простая задача (хотя telegram, whatsapp, facebook это сделали, но где они, а где ты?)
 Все альтернативы построены на использовании под капотом gcm и являются лишь обертками.
 
-###### Советы
+#### Topics
+GCM позволяет слать пуши не только конкретным юзерам, но и группам пользователей. Появляется такое понятие как topics.
+
+После получения пуш токена можно подписать юзера на определенный топик - название ты задаешь сам.
+
+Пример - можно разделить юзеров по половому признаку. Допустим, известен пол.
+Мужчин подписываем на топик men. Женщин - women.
+И на 8 марта делаем рассылку в women, на 23 февраля в man.
+В примере ниже описано как делать такую рассылку.
+
+#### Советы
 * Вступление. Для пуш уведомления есть две иконки - большая и маленькая. Маленькая отображается в статус баре и потом отображается в развернутом пуше.
 Большая отображается только в развернутом пуше.
 Маленькая до 5.0 могла быть любого цвета, с 5.0 на неё применяется фильтр и все непрозрачные цвета становятся белыми.
@@ -33,14 +43,44 @@
 
 ![push_white](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/push_white.png) ![push_black](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/push_black.jpg)
 
-###### Как проверить
-Для проверки используем онлайн php консоль
+#### Как проверить
 
 1. Устанавливаем пример на девайс, нажимаем "Register push token", копируем token из logcat.
 
-2. Берем этот код: https://gist.github.com/IlyaEremin/f15711a5dfb8b0dc28f29cab319ae4b9 и вставляем сюда http://phpfiddle.org/
+2. Делаем POST запрос на [https://gcm-http.googleapis.com/gcm/send](https://gcm-http.googleapis.com/gcm/send) со след параметрами:
 
-3. Подставляем туда свои значения server api key (см Настройки п.7) и token устройства (тот что скопировал в п.1 из logcat).
+```
+HEADERS:
+Content-Type:application/json
+Authorization:key=your_server_api_key (см Настройки п.7)
+```
 
-4. Нажимаем Run - F9 и получаем пуш на устройство.
+Далее добавляет в тело запроса след инфу:
+
+Для пуша на конкретное устройство
+
+```json
+{
+  "to": "device_push_token",
+  "data": {
+    "message": "Your message",
+   }
+}
+```
+`device_push_token` берем в п.1 из logcat
+
+Для пуша группе юзеров
+
+```json
+{
+  "to": "/topics/your_topic",
+  "data": {
+    "message": "Your message",
+   }
+}
+```
+
+[Офиц гайд по тестирования пушей на конкретное устройство](https://developers.google.com/cloud-messaging/topic-messaging#sending_topic_messages_from_the_server)
+
+[Офиц гайд по топикам](https://developers.google.com/cloud-messaging/topic-messaging)
 
