@@ -36,12 +36,17 @@ GCM позволяет слать пуши не только конкретны�
 Это может привести к тому, что у тебя есть цветная картинка на каком-то непрозрачном фоне и после фильтра она станет белым квадратом.
 Тут 2 пути, либо иметь 2 набора иконок, либо сразу сделать иконку в белом цвете вне зависимости от sdk
 
-![expanded_push_old](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/expanded_push_old.png) ![expanded_push_new](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/expanded_push_new.png)   
+| Pre 5.0        |     5.0+ |
+|:--------------:|:--------:|
+|![expanded_push_old](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/expanded_push_old.png =300х) | ![expanded_push_new](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/expanded_push_new.png =300х) |
+   
 
 * Для развернутого пуш уведомления можно подсунуть кастомную вьюшку с любым расположением элементов (смотри класс `PushNotificationManager#createCustomView)
 Нужно учесть, что на девайсах до 5.0 (или до 4.4, не помню), фон у вьюшки должен быть темный, а текст белый, иначе она будет смотреться иначе. А на девайсах выше, наоборот - белый фон и черный текст.
 
-![push_white](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/push_white.png) ![push_black](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/push_black.jpg)
+|   Pre 5.0      |  5.0+    |
+|:--------------:|:--------:|
+|![push_white](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/push_white.png =300х) | ![push_black](https://raw.githubusercontent.com/fs/android-examples/push_notifications/PushNotifications/arts/push_black.jpg =300х) |
 
 #### Как проверить
 
