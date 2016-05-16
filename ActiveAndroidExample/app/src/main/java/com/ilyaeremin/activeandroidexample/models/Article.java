@@ -16,8 +16,10 @@ public class Article extends Model {
     @Column                 String       name;
     @Column                 String       imageUrl;
     @Column                 SharingLinks links;
-    @Column                 List<Block>  blocks;
+
     @Column(name = "block") Block        block;
+
+    private List<Block> blocks;
 
     public void setBlock(Block block) {
         this.block = block;
@@ -34,4 +36,9 @@ public class Article extends Model {
     public void setBlocks(List<Block> blocks) {
         this.blocks = blocks;
     }
+
+    public List<Block> getBlocks() {
+        return this.blocks;
+    }
+
 }

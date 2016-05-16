@@ -26,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
         final List<Article> articles = new ArrayList<Article>();
         for (int i = 0; i < 1000; i++) {
-            Article article = new Article();
+            final Article article = new Article();
             article.set_id(i);
+            final int finalI = i;
             article.setBlocks(new ArrayList<Block>() {{
-                add(new Block("some text", "url"));
-                add(new Block("some text2", "url2"));
+                add(new Block(finalI, "some text", "url"));
+                add(new Block(finalI, "some text2", "url2"));
             }});
-            article.setBlock(new Block("separate block", "some url"));
+            article.setBlock(new Block(i, "separate block", "some url"));
             articles.add(article);
         }
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 ActiveAndroid.beginTransaction();
                 try {
                     for (Article article : articles) {
-                        article.save();
+                        DbHelper.saveArticle(article);
                     }
                     ActiveAndroid.setTransactionSuccessful();
                 } finally {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onClick(View v) {
                 long before = System.currentTimeMillis();
                 for (Article article : articles) {
-                    article.save();
+                    DbHelper.saveArticle(article);
                 }
                 long after = System.currentTimeMillis();
                 info.setText("writing 1000 objects without transaction complete on: " + (after - before) + " millis");
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.write_10_articles).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 for (int i = 0; i < 10; i++) {
-                    articles.get(i).save();
+                    DbHelper.saveArticle(articles.get(i));
                 }
             }
         });
