@@ -13,18 +13,17 @@ import java.util.List;
 public class Article extends Model {
     @Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     long _id;
-    @Column String       name;
-    @Column String       imageUrl;
-    @Column SharingLinks links;
-    @Column String[]     likes;
+    @Column                     String       name;
+    @Column(name = "image_url") String       imageUrl;
+    @Column                     SharingLinks links;
+    @Column                     List<String> reposts;
+    @Column                     String[]     likes;
+
+    private List<Block> blocks;
 
     public void setReposts(List<String> reposts) {
         this.reposts = reposts;
     }
-
-    @Column List<String> reposts;
-
-    private List<Block> blocks;
 
     public void setLikes(String[] likes) {
         this.likes = likes;

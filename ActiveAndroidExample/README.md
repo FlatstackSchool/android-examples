@@ -73,7 +73,9 @@ ActiveAndroid.initialize(configBuilder.create());
 Нужные классы наследуем от `Model` и добавляем к каждому аннотацию `@Table(name = "table name")`
 Далее помечаем каждое необходимые для записи поля аннотацией `@Column`. _Важно!_ Не иметь полей с именем `id`, такое поле уже есть внутри `Model`.
 Если хочешь поле как уникальный идентификатор объекта, то помечай его `@Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)`
-Для аннотации `@Column` можно задать множество настроек.
+Для аннотации `@Column` можно задать множество настроек. Например, `@Column(name = some_name) long someName` для смены имени столбца.
+Если не указать имя, то оно будет таким же, к
+
 ```java
 @Table(name = "favorites")
 public class Article extends Model {
