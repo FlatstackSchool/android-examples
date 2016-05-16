@@ -72,6 +72,7 @@ ActiveAndroid.initialize(configBuilder.create());
 ###### И наконец, как это использовать.
 Нужные классы наследуем от `Model` и добавляем к каждому аннотацию `@Table(name = "table name")`
 Далее помечаем каждое необходимые для записи поля аннотацией `@Column`. _Важно!_ Не иметь полей с именем `id`, такое поле уже есть внутри `Model`.
+Также есть [список зарезервированных sql имен, которые нельзя использовать](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model#reserved-table-and-column-names)
 Если хочешь поле как уникальный идентификатор объекта, то помечай его `@Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)`
 Для аннотации `@Column` можно задать множество настроек. Например, `@Column(name = some_name) long someName` для смены имени столбца.
 Если не указать имя, то оно будет таким же, к
