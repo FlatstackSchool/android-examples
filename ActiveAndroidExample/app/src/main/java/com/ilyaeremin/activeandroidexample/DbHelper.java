@@ -1,5 +1,7 @@
 package com.ilyaeremin.activeandroidexample;
 
+import android.support.annotation.Nullable;
+
 import com.activeandroid.Cache;
 import com.activeandroid.query.Select;
 import com.ilyaeremin.activeandroidexample.models.Article;
@@ -18,12 +20,14 @@ public class DbHelper {
         article.save();
     }
 
-    public static Article getArticleById(long id) {
+    @Nullable public static Article getArticleById(long id) {
         Article article = new Select().from(Article.class).where("_id=?", id).executeSingle();
-        List<Block> blocks = new Select()
-            .from(Block.class)
-            .where(Cache.getTableName(Block.class) + "." + Block.FOREIGN_KEY + "=?", article.get_id()).execute();
-        article.setBlocks(blocks);
+        if (article != null) {
+            List<Block> blocks = new Select()
+                .from(Block.class)
+                .where(Cache.getTableName(Block.class) + "." + Block.FOREIGN_KEY + "=?", article.get_id()).execute();
+            article.setBlocks(blocks);
+        }
         return article;
     }
 }

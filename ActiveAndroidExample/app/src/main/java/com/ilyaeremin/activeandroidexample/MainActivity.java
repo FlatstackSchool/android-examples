@@ -24,18 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         info = (TextView) findViewById(R.id.info);
 
-        final List<Article> articles = new ArrayList<Article>();
-        for (int i = 0; i < 1000; i++) {
-            final Article article = new Article();
-            article.set_id(i);
-            final int finalI = i;
-            article.setBlocks(new ArrayList<Block>() {{
-                add(new Block(finalI, "some text", "url"));
-                add(new Block(finalI, "some text2", "url2"));
-            }});
-            article.setBlock(new Block(i, "separate block", "some url"));
-            articles.add(article);
-        }
+        final List<Article> articles = createTestData();
 
         findViewById(R.id.write_with_transaction).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -70,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        findViewById(R.id.read_article).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Article article = DbHelper.getArticleById(1);
+                Toast.makeText(MainActivity.this, Deps.getInstance().getMapper().toJson(article), Toast.LENGTH_LONG).show();
+            }
+        });
         findViewById(R.id.clear_db).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 long before = System.currentTimeMillis();
@@ -78,5 +73,29 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Done with " + (after - before) + " millis", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private List<Article> createTestData() {
+        List<Article> articles = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            final Article article = new Article();
+            article.set_id(i);
+            final int finalI = i;
+            article.setBlocks(new ArrayList<Block>() {{
+                add(new Block(finalI, "some text", "url"));
+                add(new Block(finalI, "some text2", "url2"));
+            }});
+            article.setLikes(new String[]{
+                "Mike", "John", "Monica", "Michel"
+            });
+            article.setReposts(new ArrayList<String>() {{
+                add("Ilya");
+                add("Ramil");
+                add("Ruslan");
+                add("Adel");
+            }});
+            articles.add(article);
+        }
+        return articles;
     }
 }
