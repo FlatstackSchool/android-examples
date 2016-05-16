@@ -4,7 +4,10 @@
 #### Причины
 ActiveAndroid (далее AA) дает удобную оболочку над sqlite.
 Он подходит для приложений не требующих сложных запросов и очень быстрых ответов - то есть для большинства.
-См также: стоит обратить внимание на [Realm](https://realm.io/docs/java/latest/), [SQLBrite](https://github.com/square/sqlbrite) (тоже обертка над sqlite от square && JackWharton) и sqlite.
+См также: стоит обратить внимание на [Realm](https://realm.io/docs/java/latest/),
+[SQLBrite](https://github.com/square/sqlbrite) (тоже обертка над sqlite от square && JackWharton),
+[GreenDAO](http://greenrobot.org/greendao/) (от тех же ребят что сделали известным всем ивент бас)
+и sqlite.
 
 Это описание является выжимкой из [официального гайда](https://github.com/pardom/ActiveAndroid/wiki/Getting-started).
 И результатом моего опыта работы с ActiveAndroid
@@ -40,21 +43,25 @@ ActiveAndroid.initialize(configBuilder.create());
 Configuration.Builder configBuilder = new Configuration.Builder(app);
 configBuilder.setDatabaseName("example.db");
 configBuilder.setDatabaseVersion(1);
-<b>configBuilder.addModelClasses(Article.class, ArticleDetails.class);
-configBuilder.addTypeSerializers(ImageSerializer.class, SharingBarsSerializer.class, SharingSerializer.class);</b>
+<b>configBuilder.addModelClasses(Article.class, Block.class);
+configBuilder.addTypeSerializers(SharingLinksSerializer.class, StringArraySerializer.class, ListSerializer.class);</b>
 ActiveAndroid.initialize(configBuilder.create());
-
 ```
+[Эту инфу можно также указывать в `AndroidManifest.xml`](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model#speeding-up-application-startup)
 
 ###### TypeSerializer
 Из коробки ActiveAndroid умеет записывать в базу все примитивы и String.
 Не умеет работать с массивами. Например, для `int[]` необходимо писать свой сериалайзер.
-То есть, если у тебя есть объект с любыми полями отличными от них и которые не наследуются от `Model`,
-то тебе надо писать для них Serializer. Вкратце, надо написать правила для сериализации и десериализации.
-Хранить данные можно в любых примитивных форматах или в String. В этом проекте есть несколько примеров `TypeSerializer`.
+То есть, если у тебя есть объект с любыми полями отличными от них и которые не наследуются от `Model`, то тебе надо писать для них Serializer.
+Хранить данные можно в любых примитивных форматах или в String. См примеры в `/serializers`.
+
+###### Поля, которые наследуются от `Model`
+На них для записи необходимо явно вызывать `save()` (см пример `DbHelper`)
+При чтении нужно самостоятельно сделать выборку (см пример `DbHelper`) и записать поля в объект.
 
 ###### Парсинг в json
-Если объекты, которые наследуются от `Model` также сериализуются в json, то для Gson'а надо задать правило, не сериализовать\десериализовать 'final' поля.
+`extends Model` дает дополнительные поля, которые могут сломать парсинг из\в json.
+Для Gson'а надо задать правило, не сериализовать\десериализовать 'final' поля.
 При работе с gson все равно нельзя иметь final поля в своих объектах, если только ты не используешь кастомный парсер.
 
 ###### Тесты
@@ -110,5 +117,26 @@ article.delete();
 new Delete().from(Article.class).execute();
 ```
 
+######Ограничения
+Данная библиотека имеет дикий недостаток: она не умеет из коробки работать с полями типа `List`
+Почему это недостаток? Можно написать кастомный сериалайзер для листов,
+но чтобы написать сериалайзер надо указать в одном из методов тип сериализуемого объекта,
+а из-за java type erasure мы этого сделать не можем (нельзя получить класс от `List<SomeType>`)
+Возможные выходы:
+1. Хранить коллекции объектов в виде массивов и писать для каждого типа массивов сериалайзер (см. `StringArraySerializer`)
+(по сути здесь ничего страшного, но могут возникнуть непредвиденные проблемы позже).
+2. Написать сериалайзер для списков, с сохранением типов (учти, чтобы все не испортилось при переименовании объектов).
+Вывод - оба этих решения не очень и заставляют отказаться от использования ActiveAndroid, потому что `List<T>` - частый случай
+(см `ListSerializer`).
+3. Если это `List<? extends Model>` то для сохранения такого поля надо можно написать хелпер (см `DbHelper`),
+который бы вызывал `save()` на каждом элементе.
+
 ###### [Миграция](https://github.com/pardom/ActiveAndroid/wiki/Schema-migrations)
 Тут придется испачкать руки в sql запросах :)
+
+###### Рекомендации
+Не стоит иметь поля, которые `extends Model` - объекты лучше просто сериализовать,
+сложные базы по всем правилам и со всеми отношениями редко требуются в мобильном приложении.
+
+## TODO
+* Подробней рассмотреть вариант `A extends Model`, который содержит `B extends Model` - что происходит на самом деле?
