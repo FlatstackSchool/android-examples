@@ -140,5 +140,23 @@ new Delete().from(Article.class).execute();
 Не стоит иметь поля, которые `extends Model` - объекты лучше просто сериализовать,
 сложные базы по всем правилам и со всеми отношениями редко требуются в мобильном приложении.
 
+###### Proguard
+```
+-keep class com.activeandroid.** { *; }
+-keep class com.activeandroid.**.** { *; }
+-keep class * extends com.activeandroid.Model
+-keep class * extends com.activeandroid.serializer.TypeSerializer
+-keepattributes Column
+-keepattributes Table
+-keepclasseswithmembers class * { @com.activeandroid.annotation.Column <fields>; }
+```
+
+###### Methods count
+```
+ActiveAndroid 3.1.0-SNAPSHOT
+Methods: 354
+Fields: 112
+```
+
 ## TODO
 * Подробней рассмотреть вариант `A extends Model`, который содержит `B extends Model` - что происходит на самом деле?
