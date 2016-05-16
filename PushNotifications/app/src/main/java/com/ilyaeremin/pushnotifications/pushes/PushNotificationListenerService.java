@@ -18,12 +18,13 @@ public class PushNotificationListenerService extends GcmListenerService {
      * @param data here you can find all data from server
      */
     @Override public void onMessageReceived(String from, Bundle data) {
-        String message = data.getString("message");
+        String message = "from " + from + " " + data.getString("message");
         String usefulInfo = data.getString("payload");
         Intent action = new Intent(this, PushActivity.class);
         action.putExtra(PushNotificationManager.KEY_PAYLOAD, usefulInfo);
         action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PushNotificationManager.showNotification(this, action, message);
+
     }
 
 }
