@@ -20,6 +20,7 @@
         <activity android:name=".RotateAndJumpScreen"/>
         <activity android:name=".ViewPropertyAnimatorScreen"/>
         <activity android:name=".AnimatorInflaterScreen"/>
+        <activity android:name=".AnimatorSetScreen"/>
     </application>
 
 </manifest>
