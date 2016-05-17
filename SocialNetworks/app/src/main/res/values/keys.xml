@@ -2,6 +2,6 @@
 <resources>
     <string name="facebook_app_id" translatable="false">1659425290964502</string>
     <string name="vk_app_id" translatable="false">5224432</string>
-    <string name="twitter_key" translatable="false">w07lljsndYrhWEvaFGmVwgkr9</string>
-    <string name="twitter_secret" translatable="false">BxH2D6Zdon9iiEFZ8Qik3TXrOtGrio52000RmEdykcXPvBPvS9</string>
+    <string name="twitter_key" translatable="false">IgqeIZd6OCLswhpgv4I3FN4NJ</string>
+    <string name="twitter_secret" translatable="false">EwCoWWO4LfZ9e3LIzhaQwANL4qAEWVjIAkd9NA134HUNL35nzI</string>
 </resources>

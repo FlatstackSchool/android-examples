@@ -1,8 +1,8 @@
-package com.flatstack.socialnetworks.authorization;
+package com.flatstack.socialnetworks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -16,37 +16,50 @@ import com.facebook.login.widget.LoginButton;
 /**
  * Created by Ilya Eremin on 1/6/16.
  */
-public class FbLoginFragment extends Fragment {
+public class FbLoginActivity extends AppCompatActivity {
 
     private LoginButton     loginButton;
     private CallbackManager callbackManager;
 
     @Override public void onCreate(Bundle savedState) {
-        FacebookSdk.sdkInitialize(getContext().getApplicationContext());
+        FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        loginButton = new LoginButton(getActivity());
-        loginButton.setFragment(this);
+        loginButton = new LoginButton(this);
+        requestAdditionalPermission(loginButton);
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 String token = loginResult.getAccessToken().getToken();
-                Toast.makeText(getContext(), "token here" + token, Toast.LENGTH_LONG).show();
+                Toast.makeText(FbLoginActivity.this, "token here" + token, Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override
             public void onCancel() {
-                // what TO DO on cancel?
+                finish();
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // what TO DO on error?
+                Toast.makeText(FbLoginActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
         super.onCreate(savedState);
         if (savedState == null) {
             firstFragmentLaunch();
         }
+    }
+
+    /**
+     * если необходимо дополнительные права на чтение\запись ты знаешь что делать
+     * Для поста на стену достаточно стандартного скоупа
+     * {@see https://developers.facebook.com/docs/facebook-login/permissions}
+     */
+    private void requestAdditionalPermission(LoginButton loginButton) {
+//        loginButton.setPublishPermissions();
+//        loginButton.setReadPermissions();
     }
 
     protected void firstFragmentLaunch() {

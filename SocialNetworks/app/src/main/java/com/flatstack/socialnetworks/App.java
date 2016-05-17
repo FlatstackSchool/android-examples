@@ -15,11 +15,19 @@ public class App extends Application {
 
     @Override public void onCreate() {
         super.onCreate();
+        initializeTwitter();
+        initializeVk();
+    }
+
+    private void initializeVk() {
+        String vkAppId = getString(R.string.vk_app_id);
+        VKSdk.initialize(this, Integer.valueOf(vkAppId));
+    }
+
+    private void initializeTwitter() {
         String twitterKey = getString(R.string.twitter_key);
         String twitterSecret = getString(R.string.twitter_secret);
-        String vkAppId = getString(R.string.vk_app_id);
         Fabric.with(this, new TwitterCore(new TwitterAuthConfig(twitterKey, twitterSecret)));
-        VKSdk.initialize(this, Integer.valueOf(vkAppId));
     }
 
 }
