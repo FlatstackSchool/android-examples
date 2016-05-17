@@ -19,6 +19,7 @@
         <activity android:name=".ColorPlaysScreen"/>
         <activity android:name=".RotateAndJumpScreen"/>
         <activity android:name=".ViewPropertyAnimatorScreen"/>
+        <activity android:name=".AnimatorInflaterScreen"/>
     </application>
 
 </manifest>

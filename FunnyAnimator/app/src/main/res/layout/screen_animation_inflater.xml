@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     >
 
     <Button
-        android:id="@+id/screen_color"
+        android:id="@+id/animate_me_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Colors"
+        android:text="Object animator"
         />
 
     <Button
-        android:id="@+id/rotate_and_jump"
+        android:id="@+id/animator_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rotate and jump"
+        android:text="Animator Set"
+        android:layout_gravity="center_vertical"
         />
 
     <Button
-        android:id="@+id/view_property_animator"
+        android:id="@+id/value_animator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View property animator"
+        android:text="Value Animator"
+        android:layout_gravity="bottom"
         />
 
-    <Button
-        android:id="@+id/animator_inflator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Animator Inflator"
-        />
 
-</LinearLayout>
+</FrameLayout>
