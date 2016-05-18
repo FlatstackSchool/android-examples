@@ -31,5 +31,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AnimatorInflaterScreen.class));
             }
         });
+        findViewById(R.id.animator_set).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AnimatorSetScreen.class));
+            }
+        });
     }
 }
