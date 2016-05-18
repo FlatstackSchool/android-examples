@@ -13,12 +13,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViewById(R.id.screen_color).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ColorPlaysScreen.class));
+                startActivity(new Intent(MainActivity.this, ValueAnimatorScreen.class));
             }
         });
         findViewById(R.id.rotate_and_jump).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RotateAndJumpScreen.class));
+                startActivity(new Intent(MainActivity.this, ObjectAnimatorScreen.class));
             }
         });
         findViewById(R.id.view_property_animator).setOnClickListener(new View.OnClickListener() {

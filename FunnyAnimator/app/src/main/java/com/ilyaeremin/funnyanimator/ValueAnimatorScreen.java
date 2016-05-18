@@ -11,7 +11,7 @@ import android.view.View;
 /**
  * Created by Ilya Eremin on 23.04.2016.
  */
-public class ColorPlaysScreen extends AppCompatActivity {
+public class ValueAnimatorScreen extends AppCompatActivity {
 
     private int targetColor = Color.BLACK;
     private View target;
