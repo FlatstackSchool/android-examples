@@ -4,7 +4,7 @@
 (Официальный толковый подробный гайд)[http://developer.android.com/intl/ru/guide/topics/graphics/prop-animation.html]
 (Либа с кучей нестандартных интересных анимаций)[https://github.com/daimajia/AndroidViewAnimations]
 
-####Практика
+### Практика
 Для анимации используются 3 класса: `ViewPropertyAnimator`, `ValueAnimator` и `ObjectAnimator`.
 
 * **ViewPropertyAnimator** - Не является наследником от `ValueAnimator`.
@@ -28,6 +28,29 @@
 И добавляем свой колбек `ValueAnimator.AnimatorUpdateListener` в которых приходят промежуточные значения.
 Их мы и используем по своему усмотрению.
 Большой плюс здесь - можно задать один `ValueAnimator` и в колбеке обновлять сколько угодно `View`.
+Пример:
+```
+ValueAnimator animator = ValueAnimator.ofInt(0, 360, 0);
+animator.setDuration(2000);
+animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    @Override public void onAnimationUpdate(ValueAnimator animation) {
+        int animatedValue = (int) animation.getAnimatedValue();
+        target.setRotation(animatedValue);
+    }
+});
+animator.start();
+```
+
+* **ObjectAnimator** - наследник `ValueAnimator`. Добавляет возможность указать объект над которым будут производиться действия и метод, куда будут отдаваться значения.
+Название метода следует указывать без приставки `set`. Обрати внимание, чтобы принимаемый тип значения совпадал с тем, что указан при создании `ObjectAnimator`.
+То есть если нужный метод принимает `float`, то следует использовать `ObjectAnimator.ofFloat(...)`.
+Пример:
+```
+ObjectAnimator simpleAnim = ObjectAnimator.ofFloat(v, "translationX", 0, 300);
+simpleAnim.setDuration(300);
+simpleanim.setInterpolator(new AccelerateDecelerateInterpolator());
+simpleAnim.start();
+```
 
 ##### Inflate from .xml
 [Документация](https://developer.android.com/guide/topics/graphics/prop-animation.html#declaring-xml)
@@ -38,7 +61,7 @@
 #### Стандартые значения для animator
 При создании `animator` интервал между кадрами - 10ms, время анимации 300ms, используется `LinearInterpolator`.
 
-####Теория
+### Теория
 
 Во всей абстракции android animator есть 3 участника: `Evaluator`, `Interpolator` и `Animator`
 И входные данные: время анимации и интервал, который нужно анимировать, например два числа 0 и 360 (от 0 до 360), или 0.1 - 0.5 или цвет от Color.RED до Color.WHITE
@@ -66,21 +89,6 @@ Evaluator с каждым тиком переводит проценты к ну
 
 **Animator** - этот парень рассчитывает тайминги, когда делать каждый кадр, какие значения передавать в колбеки, содержит все `Listener`'ы, инфу нужно ли повторять анимацию.
 Внутри себя использует `Evaluator` и `Interpolator`
-
-Для того, чтобы все работало, необходимы два шага (помимо исходных данных: начальный, конечной точек и времени): вычислить значение для анимируемого параметра и применить это значение.
-Два основных класса для работы с animator api: `ObjectAnimator` и `ValueAnimator` и первый наследуется от второго. `ValueAnimator` высчитывает время и значения для анимации, но то, как это значение использовать
-решаешь ты. Например, ты хочешь анимировать значение от 0 до 100 за 1 секунду и в твой колбек через определенные промежутки времени будет приходить `int`, с которым ты сам решаешь что делать.
-`ObjectAnimator` позволяет указать объект, который ты хочешь анимировать и имя метода без приставки set (то есть если метод setX, то в аниматор отдаем просто x) в который будут приходить значение.
-
-```java
-ObjectAnimator animator = new ObjectAnimator();
-animator.setIntValues(0, 100);
-animator.setTarget(yourAnimatedView);
-animator.setInterpolator(new AccelerateDecelerateInterpolator());
-animator.setDuration(1000);
-animator.setPropertyName("x");
-animator.start();
-```
 
 #### AnimatorSet
 Анимации можно хитро комбинировать с помощью этого класса См пример [AnimatorSetScreen](app/src/main/java/com/ilyaeremin/funnyanimator/AnimatorSetScreen.java)
