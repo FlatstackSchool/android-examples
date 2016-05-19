@@ -82,7 +82,9 @@ Evaluator с каждым тиком переводит проценты к ну
 | 0.95 | 0   | 200 | 190  |
 | 1    | 0   | 200 | 200 |
 
-**Interpolator** - парень, который вычисляет fraction для `Evaluator`.
+**Interpolator** - парень, который вычисляет fraction для `Evaluator`. От него зависит динамика анимации - будет она линейной или иной.
+[Видео с обзором поведения Interpolators](https://www.youtube.com/watch?v=OMOJxBe9KGg)
+[Тестовое описание см Table 3](https://developer.android.com/guide/topics/graphics/prop-animation.html)
 
 Сравним `LinearInterpolator` и `AccelerateInterpolator`.
 Для первого выходные значения будут такие: `0, 0.1, 0.2, 0.3, ... , 0.9, 1` - то есть анимация идет плавно, _линейно_.
