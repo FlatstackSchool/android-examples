@@ -16,11 +16,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ValueAnimatorScreen"/>
-        <activity android:name=".ObjectAnimatorScreen"/>
-        <activity android:name=".ViewPropertyAnimatorScreen"/>
-        <activity android:name=".AnimatorInflaterScreen"/>
-        <activity android:name=".AnimatorSetScreen"/>
+        <activity
+            android:name=".ValueAnimatorScreen"
+            android:label="@string/title_value_animator"
+            />
+        <activity
+            android:name=".ObjectAnimatorScreen"
+            android:label="@string/title_object_animator"
+            />
+        <activity
+            android:name=".ViewPropertyAnimatorScreen"
+            android:label="@string/title_view_property_animator"
+            />
+        <activity
+            android:name=".AnimatorInflaterScreen"
+            android:label="@string/title_animator_inflater"
+            />
+        <activity
+            android:name=".AnimatorSetScreen"
+            android:label="@string/title_animator_set"
+            />
     </application>
 
 </manifest>

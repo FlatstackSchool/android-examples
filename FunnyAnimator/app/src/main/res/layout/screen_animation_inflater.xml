@@ -7,14 +7,14 @@
     >
 
     <Button
-        android:id="@+id/animate_me_btn"
+        android:id="@+id/inflater_object_animator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Object animator"
         />
 
     <Button
-        android:id="@+id/animator_set"
+        android:id="@+id/inflater_animator_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Animator Set"

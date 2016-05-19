@@ -20,7 +20,7 @@ public class ObjectAnimatorScreen extends AppCompatActivity {
         target.setPivotY(initialSize/2);
         findViewById(R.id.run).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                ObjectAnimator.ofInt(target, "rotation", 0, 360, 0).setDuration(2000).start();
+                ObjectAnimator.ofFloat(target, "rotation", 0, 360, 0).setDuration(2000).start();
             }
         });
     }

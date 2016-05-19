@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FunnyAnimator</string>
+    <string name="title_value_animator">Value Animator</string>
+    <string name="title_object_animator">Object Animator</string>
+    <string name="title_view_property_animator">View property animator</string>
+    <string name="title_animator_inflater">Animator Inflater</string>
+    <string name="title_animator_set">Animator Set</string>
 </resources>

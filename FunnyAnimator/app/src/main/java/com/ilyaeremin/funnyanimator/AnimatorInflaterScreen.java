@@ -19,7 +19,7 @@ public class AnimatorInflaterScreen extends AppCompatActivity {
         setContentView(R.layout.screen_animation_inflater);
 
         final ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.object_animator_example);
-        findViewById(R.id.animate_me_btn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.inflater_object_animator).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 animator.setTarget(v);
                 animator.start();
@@ -28,7 +28,7 @@ public class AnimatorInflaterScreen extends AppCompatActivity {
 
         final AnimatorSet animatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.animator_set_example);
 
-        findViewById(R.id.animator_set).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.inflater_animator_set).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 animatorSet.setTarget(v);
                 animatorSet.start();

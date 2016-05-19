@@ -11,12 +11,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.screen_color).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.value_animator).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ValueAnimatorScreen.class));
             }
         });
-        findViewById(R.id.rotate_and_jump).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.object_animator).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ObjectAnimatorScreen.class));
             }
@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ViewPropertyAnimatorScreen.class));
             }
         });
-        findViewById(R.id.animator_inflator).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.animator_inflater).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AnimatorInflaterScreen.class));
             }
         });
-        findViewById(R.id.animator_set).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.inflater_animator_set).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AnimatorSetScreen.class));
             }
