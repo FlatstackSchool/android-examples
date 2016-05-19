@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="1. Make sure what db is empty\n2. Create new Item\n3. Write it in DB\n4. Clear DB\n5. Write same object to DB\n6. Do you think what DB has 1 object? No, it's empty."
+        />
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create new item"
+        />
+
+    <Button
+        android:id="@+id/write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Write latest item to DB"
+        />
+
+    <Button
+        android:id="@+id/clean_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clean DB with new Delete()"
+        />
+
+    <Button
+        android:id="@+id/show_db_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show DB content"
+        />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        />
+
+</LinearLayout>
