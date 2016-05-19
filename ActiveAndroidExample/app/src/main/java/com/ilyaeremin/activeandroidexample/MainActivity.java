@@ -1,5 +1,6 @@
 package com.ilyaeremin.activeandroidexample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.screen_main);
         info = (TextView) findViewById(R.id.info);
 
         final List<Article> articles = createTestData();
@@ -69,8 +70,14 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onClick(View v) {
                 long before = System.currentTimeMillis();
                 new Delete().from(Article.class).execute();
+                new Delete().from(Block.class).execute();
                 long after = System.currentTimeMillis();
                 Toast.makeText(MainActivity.this, "Done with " + (after - before) + " millis", Toast.LENGTH_SHORT).show();
+            }
+        });
+        findViewById(R.id.special_case).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AAOddityScreen.class));
             }
         });
     }
