@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.ilyaeremin.funnyanimator"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ValueAnimatorScreen"
+            android:label="@string/title_value_animator"
+            />
+        <activity
+            android:name=".ObjectAnimatorScreen"
+            android:label="@string/title_object_animator"
+            />
+        <activity
+            android:name=".ViewPropertyAnimatorScreen"
+            android:label="@string/title_view_property_animator"
+            />
+        <activity
+            android:name=".AnimatorInflaterScreen"
+            android:label="@string/title_animator_inflater"
+            />
+        <activity
+            android:name=".AnimatorSetScreen"
+            android:label="@string/title_animator_set"
+            />
+    </application>
+
+</manifest>
