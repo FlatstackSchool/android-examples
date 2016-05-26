@@ -12,7 +12,7 @@
 5. Жмем в правом верхнем углу на иконку с тремя вертикальными точками -> Сведения о проекте. Копируем номер проекта, он нужен для нашего android проекта.
 6. Учетные данные -> Создать учетные данные -> Ключ API -> Ключ для сервер. Вводим любое название. Создать. Полученные ключ сохраняем и отдаем server guys.
 
-![instruction](https://raw.githubusercontent.com/fs/android-examples/PushNotifications/arts/steps.gif)   
+![instruction](arts/steps.gif)   
 
 #### Ограничения
 Пуши не будут приходить на устройства без google play services. Это не проблема, если ты распространяешь приложение только в google play.
@@ -39,7 +39,7 @@ GCM позволяет слать пуши не только конкретны�
 
 | Pre 5.0        |     5.0+ |
 |:--------------:|:--------:|
-|![expanded_push_old](https://raw.githubusercontent.com/fs/android-examples/PushNotifications/arts/expanded_push_old.png) | ![expanded_push_new](https://raw.githubusercontent.com/fs/android-examples/PushNotifications/arts/expanded_push_new.png) |
+|![expanded_push_old](arts/expanded_push_old.png) | ![expanded_push_new](arts/expanded_push_new.png) |
    
 
 * Для развернутого пуш уведомления можно подсунуть кастомную вьюшку с любым расположением элементов (смотри класс `PushNotificationManager#createCustomView`)
@@ -48,7 +48,7 @@ GCM позволяет слать пуши не только конкретны�
 
 |   Pre 5.0      |  5.0+    |
 |:--------------:|:--------:|
-|![push_black](https://raw.githubusercontent.com/fs/android-examples/PushNotifications/arts/push_black.jpg) | ![push_white](https://raw.githubusercontent.com/fs/android-examples/PushNotifications/arts/push_white.png) |
+|![push_black](arts/push_black.jpg) | ![push_white](arts/push_white.png) |
 
 * [Официальный гайд внешнему виду пушей](http://www.google.com/design/spec/patterns/notifications.html)
 
