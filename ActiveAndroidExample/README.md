@@ -14,7 +14,7 @@ ActiveAndroid (далее AA) дает удобную оболочку над sq
 
 #### Требования
 
-Добавляем
+Добавляем в `app/build.gradle`
 
 ```groovy
 repositories {
@@ -37,14 +37,17 @@ ActiveAndroid.initialize(configBuilder.create());
 ##### При такой инициализации при старте ищутся классы,
 которые наследуются от `com.activeandroid.Model` 
 и `com.activeandroid.TypeSerializer` - это не самая быстрая операция и это здорово увеличивает cold startup time (до нескольких секунд с проектом в ~100 классов).
-Чтобы не делать этого, напрямую указываем какие классы необходимы для работы БД.
+Чтобы избежать сканирования, явно указываем какие классы необходимы для работы БД.
 
 ```java
 Configuration.Builder configBuilder = new Configuration.Builder(app);
 configBuilder.setDatabaseName("example.db");
 configBuilder.setDatabaseVersion(1);
-<b>configBuilder.addModelClasses(Article.class, Block.class);
-configBuilder.addTypeSerializers(SharingLinksSerializer.class, StringArraySerializer.class, ListSerializer.class);</b>
+
+configBuilder.addModelClasses(Article.class, Block.class);
+configBuilder.addTypeSerializers(SharingLinksSerializer.class, 
+                              StringArraySerializer.class, ListSerializer.class);
+
 ActiveAndroid.initialize(configBuilder.create());
 ```
 [Эту инфу можно также указывать в `AndroidManifest.xml`](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model#speeding-up-application-startup)
@@ -53,11 +56,11 @@ ActiveAndroid.initialize(configBuilder.create());
 Из коробки ActiveAndroid умеет записывать в базу все примитивы и String.
 Не умеет работать с массивами. Например, для `int[]` необходимо писать свой сериалайзер.
 То есть, если у тебя есть объект с любыми полями отличными от них и которые не наследуются от `Model`, то тебе надо писать для них Serializer.
-Хранить данные можно в любых примитивных форматах или в String. См примеры в `/serializers`.
+Хранить данные можно в любых примитивных форматах или в String. См примеры в [`/serializers`](app/src/main/java/com/ilyaeremin/activeandroidexample/serializer).
 
 ##### Поля, которые наследуются от `Model`
-На них для записи необходимо явно вызывать `save()` (см пример `DbHelper`)
-При чтении нужно самостоятельно сделать выборку (см пример `DbHelper`) и записать поля в объект.
+На них для записи необходимо явно вызывать `save()` (см пример [`DbHelper`](app/src/main/java/com/ilyaeremin/activeandroidexample/DbHelper.java)
+При чтении нужно самостоятельно сделать выборку (см пример [`DbHelper`](app/src/main/java/com/ilyaeremin/activeandroidexample/DbHelper.java)) и записать поля в объект.
 
 ##### Парсинг в json
 `extends Model` дает дополнительные поля, которые могут сломать парсинг из\в json.
@@ -75,7 +78,7 @@ ActiveAndroid.initialize(configBuilder.create());
 Также есть [список зарезервированных sql имен, которые нельзя использовать](https://github.com/pardom/ActiveAndroid/wiki/Creating-your-database-model#reserved-table-and-column-names)
 Если хочешь поле как уникальный идентификатор объекта, то помечай его `@Column(unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)`
 Для аннотации `@Column` можно задать множество настроек. Например, `@Column(name = some_name) long someName` для смены имени столбца.
-Если не указать имя, то оно будет таким же, к
+Если не указать имя, то оно будет таким же, как и имя поля.
 
 ```java
 @Table(name = "favorites")
