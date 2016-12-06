@@ -54,6 +54,8 @@
 
         <activity android:name=".VkLoginActivity"/>
 
+        <activity android:name=".GoogleAuthActivity"/>
+
     </application>
 
 </manifest>

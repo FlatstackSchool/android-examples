@@ -39,6 +39,11 @@ public class MainScreen extends Fragment {
                 Navigator.twitterLogin(getActivity());
             }
         });
+        view.findViewById(R.id.google).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Navigator.googleLogin(getActivity());
+            }
+        });
         view.findViewById(R.id.share_via_fb).setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Shares.facebook("https://vk.com/ilyaeremin", "Your money my code", "http://www.alternet.org/files/images/managed/media_snoop.jpg", getActivity());
