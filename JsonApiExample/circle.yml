@@ -1,0 +1,28 @@
+machine:
+   environment:
+     ANDROID_HOME: /usr/local/android-sdk-linux
+     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+   java:
+     version: oraclejdk8
+
+dependencies:
+  pre:
+    - echo y | android update sdk --no-ui --all --filter "tools,platform-tools,android-25,extra-google-m2repository"
+    - echo y | android update sdk --no-ui --all --filter "build-tools-25.0.1"
+    - echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
+
+test:
+  override:
+    - ./gradlew checkstyle lintProductionRelease testProductionReleaseUnitTest
+
+#deployment:
+#  production: # just a label; label names are completely up to you
+#    branch: master
+#    commands:
+#      - ./gradlew publishApkRelease
+#        -Dorg.gradle.project.track=production
+#  beta:
+#    branch: develop
+#    commands:
+#      - ./gradlew publishApkRelease
+#        -Dorg.gradle.project.track=beta
