@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'spoon'
 apply from: 'checkstyle/checkstyle.gradle'
 
@@ -104,6 +105,7 @@ dependencies {
 
     testCompile unitTestLibs
     androidTestCompile androidTestsLibs
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 // Grant animation permissions to avoid test failure because of ui sync.
