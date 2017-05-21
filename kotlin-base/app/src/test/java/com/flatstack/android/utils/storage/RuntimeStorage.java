@@ -12,8 +12,8 @@ public class RuntimeStorage implements IStorage {
 
     private Map<String, Object> map = new HashMap<>();
 
-    @Override public <T> void put(@NonNull String key, @NonNull T item) {
-        map.put(key, item);
+    @Override public <T> void put(@NonNull String key, @NonNull T items) {
+        map.put(key, items);
     }
 
     @Nullable @Override
