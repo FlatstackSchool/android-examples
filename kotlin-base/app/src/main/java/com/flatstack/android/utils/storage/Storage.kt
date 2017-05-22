@@ -14,11 +14,7 @@ class Storage(private val sp: SharedPreferences, private val gson: Gson) : IStor
 
     override fun <T> get(key: String, type: Type): T? {
         val json = sp.getString(key, "")
-        if ("" == json)
-            return null
-        else {
-            return gson.fromJson<T>(json, type)
-        }
+        return if("" == json) null else gson.fromJson<T>(json, type)
     }
 
     override fun <T> put(key: String, item: T) {
