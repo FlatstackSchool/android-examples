@@ -34,14 +34,14 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog.window.requestFeature(Window.FEATURE_NO_TITLE)
         return dialog
     }
 
-    override fun onCreateView(inflater: LayoutInflater?,
+    override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val v = inflater!!.inflate(layoutRes, container, false)
+        val v = inflater.inflate(layoutRes, container, false)
         ButterKnife.bind(this, v)
         return v
     }
@@ -64,8 +64,7 @@ abstract class BaseDialogFragment : DialogFragment() {
                     .findFragmentByTag(dialogFragment.javaClass.name)
             if (prev != null) {
                 ft.remove(prev)
-                val df = prev as DialogFragment
-                df.dismissAllowingStateLoss()
+                (prev as DialogFragment).dismissAllowingStateLoss()
             }
             ft.addToBackStack(null)
             dialogFragment.show(ft, dialogFragment.javaClass.name)

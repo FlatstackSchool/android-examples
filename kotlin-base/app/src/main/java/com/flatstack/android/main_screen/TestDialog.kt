@@ -36,12 +36,12 @@ class TestDialog : BaseDialogFragment() {
 
         fun show(title: String?, message: String?, fm: FragmentManager) {
 
-            val dialog = TestDialog()
-
-            val args = Bundle()
-            args.putString(KEY_TITLE, title ?: "")
-            args.putString(KEY_MESSAGE, message ?: "")
-            dialog.arguments = args
+            val dialog = TestDialog().apply {
+                arguments = Bundle().apply {
+                    putString(KEY_TITLE, title ?: "")
+                    putString(KEY_MESSAGE, message ?: "")
+                }
+            }
 
             dialog.show(fm, TestDialog::class.java.name)
         }

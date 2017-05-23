@@ -11,18 +11,15 @@ object Keyboard {
         val inputManager = activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val v = activity.currentFocus
-        if (v != null) {
-            inputManager.hideSoftInputFromWindow(v.windowToken, 0)
-        }
+        inputManager.hideSoftInputFromWindow(v?.windowToken, 0)
     }
 
     fun hide(view: View) {
         val imm = view.context
                 .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (!imm.isActive) {
-            return
+        if (imm.isActive) {
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun show(context: Context) {
