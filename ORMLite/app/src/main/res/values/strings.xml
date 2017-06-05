@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ORMLite</string>
+    <string name="insert_cat">INSERT CAT</string>
+    <string name="query_cat">query cat</string>
+    <string name="cat">Cat</string>
+    <string name="name">name</string>
+    <string name="favorite_food_id">favorite food id</string>
+    <string name="food">Food</string>
+    <string name="cat_id">cat id</string>
+    <string name="insert_food">INSERT FOOD</string>
+    <string name="query_food">query food</string>
+    <string name="delete_food">delete food</string>
+    <string name="delete_cat">delete cat</string>
+</resources>
