@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FcmNotifications</string>
+    <string name="tap_me_for_know_token">Tap me for know TOKEN!</string>
+</resources>
