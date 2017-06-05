@@ -2,13 +2,13 @@
 Firebase Cloud Messaging [(FCM)](https://firebase.google.com/docs/cloud-messaging/) - это межплатформенное решение для обмена сообщениями, которое позволяет надежно доставлять сообщения без каких-либо затрат.
 
 #### Добавление в Firebase Console
-Заходим в [Firebase Console](https://console.firebase.google.com),
-Созаем новый проект, жмем `Add Firebase to your Android app`.
-Заполняем поле `Android package name` именем пакета своего приложения.
-Так же можно заполнить (необязательно) `App nickname` и `SHA1 ключ`
-Жмем `Register App`, появляется окно с предложением скачать `google-services.json` файл.
-Скачиваем этот файл (либо можно будет скачать позже, просто, нажав соответсвующуюю кнопку в приложении в консоли Firebase)
-Сверху имеется вкладка `CLOUD MESSAGING`, нажав на который, можно найти `Server Key` и `Legacy Server Key`(Google рекомендует использовать `Server Key`, но и `Legacy Server Key` тоже будет работать) и `Sender ID`, которые нужны для отправки нотификаций с сервера (отдать бэкендчикам).
+- Заходим в [Firebase Console](https://console.firebase.google.com),
+- Созаем новый проект, жмем `Add Firebase to your Android app`.
+- Заполняем поле `Android package name` именем пакета своего приложения.
+- Так же можно заполнить (необязательно) `App nickname` и `SHA1 ключ`
+- Жмем `Register App`, появляется окно с предложением скачать `google-services.json` файл.
+- Скачиваем этот файл (либо можно будет скачать позже, просто, нажав соответсвующуюю кнопку в приложении в консоли Firebase)
+- Сверху имеется вкладка `CLOUD MESSAGING`, нажав на который, можно найти `Server Key` и `Legacy Server Key`(Google рекомендует использовать `Server Key`, но и `Legacy Server Key` тоже будет работать) и `Sender ID`, которые нужны для отправки нотификаций с сервера (отдать бэкендчикам).
 
 #### Добавление в проект
 Добавить следующий код в `/.build.gradle`:
