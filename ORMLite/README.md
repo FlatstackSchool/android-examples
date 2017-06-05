@@ -13,7 +13,7 @@ ORMite - это обертка над SQLite для его более удобн
 ```
 
 #### Модели/Таблицы
-Для создания таблицы, необходимо создать класс (модель) с аннотацией `@DatabaseTable(tableName = "yourTableName"), в котором необхоимо задать параметр `tableName` именем таблицы. Для создания полей, создаем переменные, которые помечаем аннотацией `@DatabaseTable()`, внутри которого можно задавать свойства поля ([полный список](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_2.html#Class-Setup)):
+Для создания таблицы, необходимо создать класс (модель) с аннотацией `@DatabaseTable(tableName = "yourTableName")`, в котором необхоимо задать параметр `tableName` именем таблицы. Для создания полей, создаем переменные, которые помечаем аннотацией `@DatabaseTable()`, внутри которого можно задавать свойства поля ([полный список](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_2.html#Class-Setup)):
 ```java
 @DatabaseTable(tableName = "cats")
  public class Cat {
@@ -25,7 +25,8 @@ ORMite - это обертка над SQLite для его более удобн
 
      @DatabaseField(columnName = COLUMN_NAME, canBeNull = false, unique = true)
      private String name;
- }```
+ }
+ ```
 
 #### Настройка DAO и инициализация
 Создаем DAO класс путем наследования от `BaseDaoImpl<ModelClass, Integer>`, в котором и будут прописаны методы для общения с базой данных:
