@@ -28,8 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private Gson gson = new Gson();
 
-    @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    @Override public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO(developer): Handle FCM messages here.
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
@@ -47,14 +46,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
-    @NonNull
-    private NotificationModel getNotificationModel(@Nullable Map<String, String> map) {
+    @NonNull private NotificationModel getNotificationModel(@Nullable Map<String, String> map) {
         JsonElement json = gson.toJsonTree(map);
         return gson.fromJson(json, NotificationModel.class);
     }
 
-    @NonNull
-    private String getMessage(@NonNull RemoteMessage remoteMessage) {
+    @NonNull private String getMessage(@NonNull RemoteMessage remoteMessage) {
         NotificationModel model = getNotificationModel(remoteMessage.getData());
         return model.isEmpty() ?
                 remoteMessage.getNotification() != null ?
@@ -65,8 +62,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 model.getName() + " - " + model.getAge() + "age: " + model.getText();
     }
 
-    @NonNull
-    private String getTitle(@NonNull RemoteMessage remoteMessage) {
+    @NonNull private String getTitle(@NonNull RemoteMessage remoteMessage) {
         return remoteMessage.getNotification() != null ?
                 StringUntils.isEmpty(remoteMessage.getNotification().getTitle()) ?
                         getString(R.string.app_name) :
@@ -74,13 +70,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 getString(R.string.app_name);
     }
 
-    @NonNull
-    private PendingIntent getContentIntent() {
+    @NonNull private PendingIntent getContentIntent() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
     }
-
-
 }
