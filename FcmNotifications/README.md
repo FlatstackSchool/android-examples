@@ -7,8 +7,8 @@ Firebase Cloud Messaging [(FCM)](https://firebase.google.com/docs/cloud-messagin
 - Заполняем поле `Android package name` именем пакета своего приложения.
 - Так же можно заполнить (необязательно) `App nickname` и `SHA1 ключ`
 - Жмем `Register App`, появляется окно с предложением скачать `google-services.json` файл.
-- Скачиваем этот файл (либо можно будет скачать позже, просто, нажав соответсвующуюю кнопку в приложении в консоли Firebase)
-- Сверху имеется вкладка `CLOUD MESSAGING`, нажав на который, можно найти `Server Key` и `Legacy Server Key`(Google рекомендует использовать `Server Key`, но и `Legacy Server Key` тоже будет работать) и `Sender ID`, которые нужны для отправки нотификаций с сервера (отдать бэкендчикам).
+- Скачиваем этот файл (либо можно будет скачать позже, просто, нажав соответсвующую кнопку в приложении в консоли Firebase)
+- Сверху имеется вкладка `CLOUD MESSAGING`, нажав на который, можно найти `Server Key` и `Legacy Server Key`(Google рекомендует использовать `Server Key`, но и `Legacy Server Key` тоже будет работать), а так же `Sender ID`, которые нужны для отправки нотификаций с сервера (отдать бэкендчикам).
 
 #### Добавление в проект
 Добавить следующий код в `/.build.gradle`:
@@ -32,7 +32,7 @@ apply plugin: 'com.google.gms.google-services'
 И копируем ранее скаченный `google-services.json` файл в директорию `/app`
 
 #### Создаем сервисы для принятия нотификаций
-Создаем класс наследуюийся от 'FirebaseInstanceIdService' и переопределяем метод `onTokenRefresh()`, который будет срабатывать каждый раз, когда будет меняться токен (здесь необходимо отправлять новый токен на сервер):
+Создаем класс, наследующийся от `FirebaseInstanceIdService` и переопределяем метод `onTokenRefresh()`, который будет срабатывать каждый раз, когда будет меняться токен (здесь необходимо отправлять новый токен на сервер):
 ```java
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override public void onTokenRefresh() {
@@ -43,7 +43,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 }
 ```
 
-Теперь создаем класс наследующийся от `FirebaseMessagingService` и переопределяем метод `onMessageReceived(RemoteMessage remoteMessage)`, который и будет принимать сообщения от сервера(здесь необходимо обработать полученныое сообщение и показать его как нотификацию):
+Теперь создаем класс, наследующийся от `FirebaseMessagingService` и переопределяем метод `onMessageReceived(RemoteMessage remoteMessage)`, который и будет принимать сообщения от сервера(здесь необходимо обработать полученныое сообщение и показать его как нотификацию):
 ```java
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -100,7 +100,8 @@ String token = FirebaseInstanceId.getInstance().getToken();
 ```
 
 #### Отправка нотфиикаций
-Для отправки нотификаций необходимо выполнить следующий запрос с сервера (эти знания уже необходимо передавать бекэндщикам):
+Для отправки нотификаций, необходимо выполнить следующий запрос с сервера (эти знания уже необходимо передавать бекэндщикам):
+
 `https://fcm.googleapis.com/fcm/send`
 
 headers:
@@ -122,16 +123,17 @@ body:
 
 #### Топики
 [Оффициальная документация](https://firebase.google.com/docs/cloud-messaging/android/send-multiple)
+
 Можно програмно подписать устройство на топики:
 ```java
 FirebaseMessaging.getInstance().subscribeToTopic("cats");
 ```
 
-Либо отписать от топикаметодом:
+Либо отписать от топика методом:
 ```java
 FirebaseMessaging.getInstance().unsubscribeFromTopic("cats");
 ```
-Рассылаются сообщения в топики ем же запросом, но другим телом:
+Рассылаются сообщения в топики тем же запросом, но другим телом:
 ```
 {
   "to": "/topics/cats",
@@ -152,6 +154,7 @@ FirebaseMessaging.getInstance().unsubscribeFromTopic("cats");
 
 #### Группы
 Создаются группы следующим запросом:
+
 `https://android.googleapis.com/gcm/notification`
 
 headers:
