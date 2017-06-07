@@ -1,0 +1,3 @@
+[submodule "RealmExample"]
+	path = RealmExample
+	url = https://github.com/yaroslavsudnik/RealmExample
