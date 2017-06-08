@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_simple_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_simple_event"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_params"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_simple_event"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/et_param_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/text_category"
+            />
+
+        <EditText
+            android:id="@+id/et_param_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/text_action"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_param_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_params"
+        android:text="@string/button_param_event"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_error_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_param_event"
+        android:text="@string/button_error_event"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_error_event"
+        android:text="@string/button_user_info"
+        />
+
+</RelativeLayout>

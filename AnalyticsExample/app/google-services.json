@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "97012783437",
+    "project_id": "analytics-4d248"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97012783437:android:acb387b16522d5f4",
+        "android_client_info": {
+          "package_name": "com.flatstack.analytics"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIUUIPFxQKp7HZJr2tZZG-VijJspYUI0o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-99355099-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
