@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Контакты</string>
+    <string name="text_creating">Создать</string>
+    <string name="text_name">Имя</string>
+    <string name="text_phone">Телефон 900 123 45 67</string>
+    <string name="error_user_create">Необходимо заполнить Имя и Телефон</string>
+    <string name="text_saving">Сохранить</string>
+    <string name="text_search">Поиск</string>
+    <string name="text_surname">Фамилия</string>
+
+    <string-array name="group_list">
+        <item>users</item>
+        <item>managers</item>
+        <item>tops</item>
+    </string-array>
+</resources>

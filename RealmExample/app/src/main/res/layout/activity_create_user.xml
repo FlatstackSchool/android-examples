@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context="com.flatstack.realmexample.CreateUserActivity"
+    >
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:hint="@string/text_name"
+        />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_surname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_name"
+        android:layout_marginBottom="6dp"
+        android:hint="@string/text_surname"
+        />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_surname"
+        android:layout_marginBottom="6dp"
+        android:hint="@string/text_phone"
+        android:inputType="numberSigned"
+        android:maxLength="10"
+        />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_phone"
+        android:layout_marginBottom="6dp"
+        android:entries="@array/group_list"
+        />
+
+</RelativeLayout>
