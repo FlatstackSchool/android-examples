@@ -1,6 +1,6 @@
 package com.flatstack.analytics.util;
 
-import com.flatstack.analytics.User;
+import java.util.Map;
 
 /**
  * Created by yaroslavsudnik on 07/06/17.
@@ -8,18 +8,16 @@ import com.flatstack.analytics.User;
 
 public interface EventLogger {
 
-    void simpleEvent();
+    void log(String event);
 
-    void paramEvent(String paramKey, String paramValue);
+    void logParam(String eventName, Map<String, String> events);
 
-    void errorEvent();
+    void logError(String errorId, String message, Throwable exception);
 
-    void performUserInfo(User user);
+    void performUserInfo(AnalyticsHelper.User user);
 
-    void onStart();
+    void onStartSession();
 
-    void onStop();
-
-    void onResume(String screenName);
+    void onStopSession();
 
 }

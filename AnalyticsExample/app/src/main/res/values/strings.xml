@@ -4,7 +4,7 @@
     <string name="text_key">Key</string>
     <string name="text_value">Value</string>
 
-    <string name="button_simple_event">simple event</string>
+    <string name="button_simple_event">send simple event</string>
     <string name="button_param_event">param event</string>
     <string name="button_error_event">error event</string>
     <string name="button_user_info">user info</string>

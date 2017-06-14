@@ -4,9 +4,9 @@ import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
 import com.crashlytics.android.answers.CustomEvent;
-import com.flatstack.analytics.User;
+
+import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -20,32 +20,35 @@ public class CrashlyticsLogger implements EventLogger {
         Fabric.with(context, new Crashlytics());
     }
 
-    @Override public void simpleEvent() {
-        Answers.getInstance().logContentView(new ContentViewEvent());
+    @Override public void log(String event) {
+        Answers.getInstance().logCustom(new CustomEvent(event));
     }
 
-    @Override public void paramEvent(String paramKey, String paramValue) {
-        Answers.getInstance().logCustom(new CustomEvent("Custom event")
-            .putCustomAttribute(paramKey, paramValue));
+    @Override public void logParam(String eventName, Map<String, String> events) {
+        for (String string : events.keySet()) {
+            Answers.getInstance().logCustom(new CustomEvent(eventName)
+                .putCustomAttribute(string, events.get(string)));
+        }
     }
 
-    @Override public void errorEvent() {
-        throw new RuntimeException("This is a crash");
+    @Override public void logError(String errorId, String message, Throwable exception) {
+        Crashlytics.logException(exception);
     }
 
-    @Override public void performUserInfo(User user) {
+    @Override public void performUserInfo(AnalyticsHelper.User user) {
         Crashlytics.setUserIdentifier(user.getId());
         Crashlytics.setUserEmail(user.getEmail());
         Crashlytics.setUserName(user.getName());
     }
 
-    @Override public void onStart() {
+    @Override public void onStartSession() {
+        // automatic start session
+        // https://support.crashlytics.com/knowledgebase/articles/397163-session-length-for-answers
     }
 
-    @Override public void onStop() {
-    }
-
-    @Override public void onResume(String screenName) {
+    @Override public void onStopSession() {
+        // automatic stop session
+        // https://support.crashlytics.com/knowledgebase/articles/397163-session-length-for-answers
     }
 
 }

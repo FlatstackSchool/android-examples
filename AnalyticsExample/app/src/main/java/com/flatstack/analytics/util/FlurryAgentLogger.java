@@ -3,10 +3,8 @@ package com.flatstack.analytics.util;
 import android.content.Context;
 
 import com.flatstack.analytics.BuildConfig;
-import com.flatstack.analytics.User;
 import com.flurry.android.FlurryAgent;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,49 +13,41 @@ import java.util.Map;
 
 public class FlurryAgentLogger implements EventLogger {
 
-    private static final String FLURRY_APIKEY = "W34TS7S5WM6PY9BR6RH9";
-
     private Context context;
 
-    public FlurryAgentLogger(Context context) {
+    public FlurryAgentLogger(Context context, String apiKey) {
         this.context = context;
 
         FlurryAgent.setLogEnabled(true);
         FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
         FlurryAgent.setReportLocation(true);
-        FlurryAgent.init(context, FLURRY_APIKEY);
+        FlurryAgent.init(context, apiKey);
     }
 
-    @Override public void simpleEvent() {
-        FlurryAgent.logEvent("simple_event");
+    @Override public void log(String event) {
+        FlurryAgent.logEvent(event);
     }
 
-    @Override public void paramEvent(String paramKey, String paramValue) {
-        Map<String, String> params = new HashMap<>();
-        params.put(paramKey, paramValue);
-
-        FlurryAgent.logEvent("param_event", params);
+    @Override public void logParam(String eventName, Map<String, String> events) {
+        FlurryAgent.logEvent(eventName, events);
     }
 
-    @Override public void errorEvent() {
-        FlurryAgent.onError("error_event", "this null error", new NullPointerException());
+    @Override public void logError(String errorId, String message, Throwable exception) {
+        FlurryAgent.onError(errorId, message, exception);
     }
 
-    @Override public void performUserInfo(User user) {
+    @Override public void performUserInfo(AnalyticsHelper.User user) {
         FlurryAgent.setUserId(user.getId());
         FlurryAgent.setAge(user.getAge());
         FlurryAgent.setGender(user.getGender());
     }
 
-    @Override public void onStart() {
+    @Override public void onStartSession() {
         FlurryAgent.onStartSession(context);
     }
 
-    @Override public void onStop() {
+    @Override public void onStopSession() {
         FlurryAgent.onEndSession(context);
-    }
-
-    @Override public void onResume(String screenName) {
     }
 
 }

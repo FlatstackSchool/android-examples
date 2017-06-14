@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.flatstack.analytics.util.AnalyticsHelper;
-import com.flurry.android.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private final String SCREEN_NAME = "mainScreen";
 
     private AnalyticsHelper analyticsHelper;
+    private String          simpleEvent;
     private String          paramKey;
     private String          paramValue;
 
@@ -29,34 +32,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onStart() {
         super.onStart();
-        analyticsHelper.onStart();
+        analyticsHelper.onStartSession();
     }
 
     @Override protected void onStop() {
         super.onStop();
-        analyticsHelper.onStop();
-    }
-
-    @Override protected void onResume() {
-        super.onResume();
-        analyticsHelper.onResume(SCREEN_NAME);
+        analyticsHelper.onStopSession();
     }
 
     @OnClick(R.id.bt_simple_event) void performSimpleEvent() {
-        analyticsHelper.simpleEvent();
+        analyticsHelper.log(simpleEvent);
     }
 
     @OnClick(R.id.bt_param_event) void performParamEvent() {
-        analyticsHelper.paramEvent(paramKey, paramValue);
+        Map<String, String> map = new HashMap<>();
+        map.put(paramKey, paramValue);
+        analyticsHelper.logParam("Custom Event", map);
     }
 
     @OnClick(R.id.bt_error_event) void performErrorEvent() {
-        analyticsHelper.errorEvent();
+        analyticsHelper.logError(SCREEN_NAME, "Error Click", new RuntimeException());
     }
 
-    @OnClick(R.id.bt_user_info) void performUserInfo() {
-        analyticsHelper.performUserInfo(new User("12345", "yaroslav.sudnik@flatstack.com",
-            "Yaroslav Sudnik", 18, Constants.MALE));
+    @OnTextChanged(R.id.et_simple_event) protected void textChangedSimpleValue(
+        CharSequence charSequence) {
+        simpleEvent = charSequence.toString();
     }
 
     @OnTextChanged(R.id.et_param_key) protected void textChangedKey(CharSequence charSequence) {
