@@ -46,7 +46,7 @@ public class GoogleAnalyticsLogger implements EventLogger {
             .build());
     }
 
-    @Override public void performUserInfo(AnalyticsHelper.User user) {
+    @Override public void performUserInfo(User user) {
         mTracker.set("&uid", user.getId());
         mTracker.send(new HitBuilders.EventBuilder()
             .setCategory("Brand")

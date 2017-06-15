@@ -35,7 +35,7 @@ public class CrashlyticsLogger implements EventLogger {
         Crashlytics.logException(exception);
     }
 
-    @Override public void performUserInfo(AnalyticsHelper.User user) {
+    @Override public void performUserInfo(User user) {
         Crashlytics.setUserIdentifier(user.getId());
         Crashlytics.setUserEmail(user.getEmail());
         Crashlytics.setUserName(user.getName());

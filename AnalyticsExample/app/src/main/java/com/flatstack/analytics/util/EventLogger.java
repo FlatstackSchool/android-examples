@@ -14,7 +14,7 @@ public interface EventLogger {
 
     void logError(String errorId, String message, Throwable exception);
 
-    void performUserInfo(AnalyticsHelper.User user);
+    void performUserInfo(User user);
 
     void onStartSession();
 

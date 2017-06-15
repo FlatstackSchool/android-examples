@@ -36,7 +36,7 @@ public class FlurryAgentLogger implements EventLogger {
         FlurryAgent.onError(errorId, message, exception);
     }
 
-    @Override public void performUserInfo(AnalyticsHelper.User user) {
+    @Override public void performUserInfo(User user) {
         FlurryAgent.setUserId(user.getId());
         FlurryAgent.setAge(user.getAge());
         FlurryAgent.setGender(user.getGender());
