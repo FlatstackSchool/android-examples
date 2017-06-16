@@ -35,6 +35,14 @@
         />
 
     <TextView
+        android:id="@+id/google"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="Google"
+        />
+
+    <TextView
         android:id="@+id/share_via_fb"
         android:layout_width="match_parent"
         android:layout_height="48dp"
