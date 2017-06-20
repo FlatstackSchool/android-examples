@@ -29,13 +29,11 @@ public class GoogleAnalyticsLogger implements EventLogger {
             .build());
     }
 
-    @Override public void logParam(String eventCategory, Map<String, String> events) {
-        for (String event : events.keySet()) {
+    @Override public void logParam(String event, Map<String, String> events) {
             mTracker.send(new HitBuilders.EventBuilder()
-                .setCategory(eventCategory)
-                .set(event, events.get(event))
+                .setAction(event)
+                .setAll(events)
                 .build());
-        }
     }
 
     @Override public void logError(String errorId, String message, Throwable exception) {
