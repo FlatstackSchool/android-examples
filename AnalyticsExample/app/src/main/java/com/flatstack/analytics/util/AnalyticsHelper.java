@@ -13,12 +13,18 @@ public class AnalyticsHelper implements EventLogger {
 
     private User user;
 
-    public AnalyticsHelper(User user) {
-        this.user = user;
+    public static AnalyticsHelper analyticsHelper;
+
+    public static void setup() {
+        analyticsHelper = new AnalyticsHelper();
     }
 
     public void addLogger(EventLogger eventLogger) {
         loggers.add(eventLogger);
+    }
+
+    public static AnalyticsHelper get() {
+        return analyticsHelper;
     }
 
     @Override public void log(String event) {
@@ -58,6 +64,10 @@ public class AnalyticsHelper implements EventLogger {
         for (EventLogger eventLogger : loggers) {
             eventLogger.onStopSession();
         }
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final String SCREEN_NAME = "mainScreen";
 
-    private AnalyticsHelper analyticsHelper;
     private String          simpleEvent;
     private String          paramKey;
     private String          paramValue;
@@ -26,32 +25,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        analyticsHelper = ((App) getApplication()).getAnalyticsHelper();
     }
 
     @Override protected void onStart() {
         super.onStart();
-        analyticsHelper.onStartSession();
+        AnalyticsHelper.get().onStartSession();
     }
 
     @Override protected void onStop() {
         super.onStop();
-        analyticsHelper.onStopSession();
+        AnalyticsHelper.get().onStopSession();
     }
 
     @OnClick(R.id.bt_simple_event) void performSimpleEvent() {
-        analyticsHelper.log(simpleEvent);
+        AnalyticsHelper.get().log(simpleEvent);
     }
 
     @OnClick(R.id.bt_param_event) void performParamEvent() {
         Map<String, String> map = new HashMap<>();
         map.put(paramKey, paramValue);
-        analyticsHelper.logParam("Custom Event", map);
+        AnalyticsHelper.get().logParam("Custom Event", map);
     }
 
     @OnClick(R.id.bt_error_event) void performErrorEvent() {
-        analyticsHelper.logError(SCREEN_NAME, "Error Click", new RuntimeException());
+        AnalyticsHelper.get().logError(SCREEN_NAME, "Error Click", new RuntimeException());
     }
 
     @OnTextChanged(R.id.et_simple_event) protected void textChangedSimpleValue(
