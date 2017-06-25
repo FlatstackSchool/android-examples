@@ -6,7 +6,7 @@ ORMite - это обертка над SQLite для его более удобн
 
 [Официальная документация](http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_1.html#Getting-Started)
 
-#### Добавлене в проект
+#### Добавление в проект
 Добавляем в `app/build.gradle`
 ```groovy
  compile 'com.j256.ormlite:ormlite-android:5.0'
@@ -165,7 +165,7 @@ methods_count:598
 dependencies_methods_count: 2342
 total_methods_count: 2940
 
-jar_size: 71
-dependencies_jar_size: 326
-total_jar_size: 397
+jar_size: 71 KB
+dependencies_jar_size: 326 KB
+total_jar_size: 397 KB
 ```
