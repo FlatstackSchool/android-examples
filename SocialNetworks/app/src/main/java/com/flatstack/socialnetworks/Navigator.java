@@ -22,6 +22,10 @@ public class Navigator {
         startActivity(context, TwitterAuthActivity.class);
     }
 
+    public static void googleLogin(@NonNull Context context) {
+        startActivity(context, GoogleAuthActivity.class);
+    }
+
     public static void vkAuthAndShare(@NonNull String link, @NonNull String title,
                                       @Nullable String imageUrl, @NonNull Context context) {
         VkLoginActivity.shareAfter(link, title, imageUrl, context);
