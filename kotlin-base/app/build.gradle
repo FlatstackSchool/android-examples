@@ -1,0 +1,132 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'spoon'
+apply from: 'checkstyle/checkstyle.gradle'
+
+apply from: '../deps.gradle'
+
+ext {
+    APPLICATION_ID = "com.flatstack.android"
+    isCI = "true".equals(System.getenv("CI"))
+    commitMessage = 'git log -1 --pretty=%B'.execute().text.trim()
+}
+
+android {
+    compileSdkVersion versions.TARGET_SDK_VERSION
+    buildToolsVersion versions.BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion versions.MIN_SDK_VERSION
+        targetSdkVersion versions.TARGET_SDK_VERSION
+
+        applicationId APPLICATION_ID
+        versionCode 1
+        versionName '1.0-beta'
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        com.android.ddmlib.DdmPreferences.setTimeOut(60000)
+    }
+
+    flavorDimensions "server"
+
+    productFlavors {
+        staging {
+            buildConfigField "String", "API_URL", "\"https://example-staging.com\""
+            applicationIdSuffix ".staging"
+            dimension "server"
+        }
+
+        production {
+            buildConfigField "String", "API_URL", "\"https://example.com\""
+            dimension "server"
+        }
+    }
+
+//    signingConfigs {
+//        release {
+//            def props = new Properties()
+//            props.load(new FileInputStream(file("$rootDir/keys.properties")))
+//            storeFile file("$rootDir/your.jks")
+//            storePassword props['storePassword']
+//            keyAlias props['keyAlias']
+//            keyPassword props['keyPassword']
+//        }
+//    }
+
+    buildTypes {
+        debug {
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        preDexLibraries = !isCI
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    lintOptions {
+        textReport true
+        textOutput "stdout"
+        lintConfig file("$projectDir/lint.xml")
+        warningsAsErrors true
+    }
+
+    configurations.all {
+//        resolutionStrategy.force "com.android.support:support-annotations:$versions.support"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile supportLibs
+    compile rxJavaLibs
+//    compile retrofitLibs
+//    compile okHttpLibs
+
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.jakewharton:butterknife:7.0.0' // view injection
+    annotationProcessor 'com.jakewharton:butterknife:7.0.0' // view injection
+    kapt 'com.jakewharton:butterknife:7.0.0' // view injection
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    testCompile unitTestLibs
+    androidTestCompile androidTestsLibs
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+
+// Grant animation permissions to avoid test failure because of ui sync.
+task grantAnimationPermissions(type: Exec, dependsOn: ['installStagingDebug', 'installProductionDebug']) {
+    group = 'test'
+    description = 'Grant permissions for testing.'
+
+    def absolutePath = file('..') // Get project absolute path
+    commandLine "$absolutePath/app/set_animation_permissions.sh com.flatstack.android".split(" ")
+}
+
+// Source: http://stackoverflow.com/q/29908110/112705
+afterEvaluate {
+    // When launching individual tests from Android Studio, it seems that only the assemble tasks
+    // get called directly, not the install* versions
+    tasks.each { task ->
+        if (task.name.endsWith('AndroidTest')) {
+            task.dependsOn grantAnimationPermissions
+        }
+    }
+}
+
+apply from: "quality.gradle"
