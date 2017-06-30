@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JsonApi Example</string>
+    <string name="loading">Loading</string>
+    <string name="todo_has_been_created">ToDo has been created</string>
+    <string name="to_do_has_been_updated">ToDo has been updated</string>
+    <string name="title_create_todo">Create ToDo</string>
+    <string name="title_todos">ToDos</string>
+    <string name="title_edit_todo">Edit ToDo</string>
+    <string name="action_logout">Logout</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_email">Email</string>
+    <string name="register">Register</string>
+    <string name="title_register">Create An Account</string>
+    <string name="title_login">Sign In</string>
+    <string name="sign_in">Sign in</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="signing_in">Signing in…</string>
+    <string name="account_has_been_created">Account has been created. Now sign in with same email/password.</string>
+    <string name="registration">Registering an account…</string>
+    <string name="no_todos">Seems like you have no ToDos.\nPress button bellow to create one.</string>
+</resources>
