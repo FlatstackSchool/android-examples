@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_settings_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sms_interception_toggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_sms_interception"
+        />
+
+    <EditText
+        android:id="@+id/phone_to_spy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/settings_hint_enter_phone"
+        android:inputType="phone"
+        />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        />
+
+    <Button
+        android:id="@+id/grant_permission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/grant_read_sms_access"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

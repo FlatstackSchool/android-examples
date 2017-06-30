@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SmsInterceptor</string>
+    <string name="enable_sms_interception">Enable sms interception</string>
+    <string name="settings_hint_enter_phone">Enter phone to spy on</string>
+    <string name="save">Save</string>
+    <string name="phone_updated">Phone updated to: %1$s</string>
+    <string name="grant_read_sms_access">Grant read sms access</string>
+    <string name="receive_sms_granted">Now app can receive incoming sms</string>
+</resources>
