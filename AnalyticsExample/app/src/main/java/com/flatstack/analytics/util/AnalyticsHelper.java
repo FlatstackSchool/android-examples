@@ -1,5 +1,7 @@
 package com.flatstack.analytics.util;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,7 +15,7 @@ public class AnalyticsHelper implements EventLogger {
 
     private User user;
 
-    public static AnalyticsHelper analyticsHelper;
+    private static AnalyticsHelper analyticsHelper;
 
     public static void setup() {
         analyticsHelper = new AnalyticsHelper();
@@ -53,16 +55,16 @@ public class AnalyticsHelper implements EventLogger {
         }
     }
 
-    @Override public void onStartSession() {
+    @Override public void onStartSession(Context context) {
         for (EventLogger eventLogger : loggers) {
             eventLogger.performUserInfo(user);
-            eventLogger.onStartSession();
+            eventLogger.onStartSession(context);
         }
     }
 
-    @Override public void onStopSession() {
+    @Override public void onStopSession(Context context) {
         for (EventLogger eventLogger : loggers) {
-            eventLogger.onStopSession();
+            eventLogger.onStopSession(context);
         }
     }
 

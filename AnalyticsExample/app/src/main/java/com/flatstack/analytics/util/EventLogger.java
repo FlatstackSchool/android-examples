@@ -1,5 +1,7 @@
 package com.flatstack.analytics.util;
 
+import android.content.Context;
+
 import java.util.Map;
 
 /**
@@ -16,8 +18,8 @@ public interface EventLogger {
 
     void performUserInfo(User user);
 
-    void onStartSession();
+    void onStartSession(Context context);
 
-    void onStopSession();
+    void onStopSession(Context context);
 
 }

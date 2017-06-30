@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onStart() {
         super.onStart();
-        AnalyticsHelper.get().onStartSession();
+        AnalyticsHelper.get().onStartSession(this);
     }
 
     @Override protected void onStop() {
         super.onStop();
-        AnalyticsHelper.get().onStopSession();
+        AnalyticsHelper.get().onStopSession(this);
     }
 
     @OnClick(R.id.bt_simple_event) void performSimpleEvent() {

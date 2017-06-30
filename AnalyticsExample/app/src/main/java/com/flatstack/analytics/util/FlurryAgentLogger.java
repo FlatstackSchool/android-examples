@@ -13,11 +13,7 @@ import java.util.Map;
 
 public class FlurryAgentLogger implements EventLogger {
 
-    private Context context;
-
     public FlurryAgentLogger(Context context, String apiKey) {
-        this.context = context;
-
         FlurryAgent.setLogEnabled(true);
         FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
         FlurryAgent.setReportLocation(true);
@@ -42,11 +38,11 @@ public class FlurryAgentLogger implements EventLogger {
         FlurryAgent.setGender(user.getGender());
     }
 
-    @Override public void onStartSession() {
+    @Override public void onStartSession(Context context) {
         FlurryAgent.onStartSession(context);
     }
 
-    @Override public void onStopSession() {
+    @Override public void onStopSession(Context context) {
         FlurryAgent.onEndSession(context);
     }
 

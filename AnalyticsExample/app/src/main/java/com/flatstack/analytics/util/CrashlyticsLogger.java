@@ -45,13 +45,13 @@ public class CrashlyticsLogger implements EventLogger {
         Crashlytics.getInstance().core.log("Perform user info");
     }
 
-    @Override public void onStartSession() {
+    @Override public void onStartSession(Context context) {
         // automatic start session
         // https://support.crashlytics.com/knowledgebase/articles/397163-session-length-for-answers
         Crashlytics.getInstance().core.log("Start Session");
     }
 
-    @Override public void onStopSession() {
+    @Override public void onStopSession(Context context) {
         // automatic stop session
         // https://support.crashlytics.com/knowledgebase/articles/397163-session-length-for-answers
         Crashlytics.getInstance().core.log("Stop Session");

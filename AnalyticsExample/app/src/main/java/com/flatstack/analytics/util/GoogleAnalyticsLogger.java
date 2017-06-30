@@ -25,12 +25,16 @@ public class GoogleAnalyticsLogger implements EventLogger {
 
     @Override public void log(String event) {
         mTracker.send(new HitBuilders.EventBuilder()
+            .setCategory("Simple Event")
             .setAction(event)
             .build());
     }
 
     @Override public void logParam(String event, Map<String, String> events) {
+        // Full parameter list is here
+        // https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
             mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Param Event")
                 .setAction(event)
                 .setAll(events)
                 .build());
@@ -38,8 +42,7 @@ public class GoogleAnalyticsLogger implements EventLogger {
 
     @Override public void logError(String errorId, String message, Throwable exception) {
         mTracker.send(new HitBuilders.ExceptionBuilder()
-            .set(errorId, message)
-            .setDescription(exception.toString())
+            .setDescription(errorId + ", " + message + ", " + exception.toString())
             .setFatal(true)
             .build());
     }
@@ -52,13 +55,13 @@ public class GoogleAnalyticsLogger implements EventLogger {
             .build());
     }
 
-    @Override public void onStartSession() {
+    @Override public void onStartSession(Context context) {
         mTracker.send(new HitBuilders.EventBuilder()
             .setNewSession()
             .build());
     }
 
-    @Override public void onStopSession() {
+    @Override public void onStopSession(Context context) {
         mTracker.send(new HitBuilders.EventBuilder()
             .set("&sc", "end")
             .build());
