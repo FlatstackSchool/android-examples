@@ -14,11 +14,11 @@ import butterknife.OnTextChanged;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String SCREEN_NAME = "mainScreen";
+    private final String TAG = "MainActivity";
 
-    private String          simpleEvent;
-    private String          paramKey;
-    private String          paramValue;
+    private String simpleEvent;
+    private String paramKey;
+    private String paramValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.bt_error_event) void performErrorEvent() {
-        AnalyticsHelper.get().logError(SCREEN_NAME, "Error Click", new RuntimeException());
+        AnalyticsHelper.get().logError(TAG, "Error Click", new RuntimeException());
     }
 
     @OnTextChanged(R.id.et_simple_event) protected void textChangedSimpleValue(

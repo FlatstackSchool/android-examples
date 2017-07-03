@@ -18,8 +18,12 @@ public class App extends android.app.Application {
     @Override public void onCreate() {
         super.onCreate();
 
+        initAnalytics();
+    }
+
+    private void initAnalytics() {
         AnalyticsHelper.setup();
-        
+
         AnalyticsHelper.get().setUser(new User("12345",
             "yaroslav.sudnik@flatstack.com", "Yaroslav Sudnik", 18, Constants.MALE));
 
