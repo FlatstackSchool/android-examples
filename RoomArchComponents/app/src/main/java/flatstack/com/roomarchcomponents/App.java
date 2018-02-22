@@ -3,6 +3,8 @@ package flatstack.com.roomarchcomponents;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 
+import com.facebook.stetho.Stetho;
+
 import flatstack.com.roomarchcomponents.data.repository.UserRepository;
 import flatstack.com.roomarchcomponents.data.source.local.AppDatabase;
 import flatstack.com.roomarchcomponents.data.source.remote.Api;
@@ -30,14 +32,29 @@ public class App extends Application {
             .addConverterFactory(JsonApiConverterFactory.create())
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .build();
-
         api = retrofit.create(Api.class);
-
         appDatabase = Room.databaseBuilder(getApplicationContext(),
             AppDatabase.class, "app-database").build();
-
         userRepository = new UserRepository(api, appDatabase.userDAO());
         userListViewModel = new UserListViewModel(userRepository);
+        initializeStetho();
+    }
+
+    private void initializeStetho() {
+        // Create an InitializerBuilder
+        Stetho.InitializerBuilder initializerBuilder =
+            Stetho.newInitializerBuilder(this);
+
+        // Enable Chrome DevTools
+        initializerBuilder.enableWebKitInspector(
+            Stetho.defaultInspectorModulesProvider(this)
+        );
+
+        // Use the InitializerBuilder to generate an Initializer
+        Stetho.Initializer initializer = initializerBuilder.build();
+
+        // Initialize Stetho with the Initializer
+        Stetho.initialize(initializer);
     }
 
     public Retrofit getRetrofit() {
