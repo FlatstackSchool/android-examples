@@ -25,7 +25,7 @@ public class UserListViewModel {
                 // and maybe some additional data needed as well
                 return users;
             }).onErrorReturn(throwable -> {
-                Log.d("Error","Something went wrong" + throwable);
+                Log.e("Error","Something went wrong" + throwable);
                 return new User[0];
             })
             ;
