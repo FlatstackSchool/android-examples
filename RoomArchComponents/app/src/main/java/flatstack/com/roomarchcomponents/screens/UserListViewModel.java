@@ -2,6 +2,9 @@ package flatstack.com.roomarchcomponents.screens;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import flatstack.com.roomarchcomponents.data.entity.User;
@@ -17,7 +20,7 @@ public class UserListViewModel {
     }
 
 
-    public Observable<User[]> getUsers() {
+    public Observable<List<User>> getUsers() {
         return userRepository.getUsers()
             .debounce(400, TimeUnit.MILLISECONDS)
             .map(users -> {
@@ -26,7 +29,7 @@ public class UserListViewModel {
                 return users;
             }).onErrorReturn(throwable -> {
                 Log.e("Error","Something went wrong" + throwable);
-                return new User[0];
+                return new ArrayList<User>();
             })
             ;
     }

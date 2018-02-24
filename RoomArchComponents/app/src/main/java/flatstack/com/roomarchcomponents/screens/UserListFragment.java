@@ -4,6 +4,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import butterknife.BindView;
 import flatstack.com.roomarchcomponents.App;
 import flatstack.com.roomarchcomponents.R;
@@ -32,7 +34,7 @@ public class UserListFragment extends BaseFragment {
                 error -> showEror(error)));
     }
 
-    private void showUsers(User[] users) {
+    private void showUsers(List<User> users) {
         uiUsersLv.setAdapter(new ArrayAdapter<User>(getContext(),
             android.R.layout.simple_list_item_1, users));
     }
