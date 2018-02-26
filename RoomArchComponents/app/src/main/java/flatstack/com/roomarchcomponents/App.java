@@ -8,7 +8,6 @@ import com.facebook.stetho.Stetho;
 import flatstack.com.roomarchcomponents.data.repository.UserRepository;
 import flatstack.com.roomarchcomponents.data.source.local.AppDatabase;
 import flatstack.com.roomarchcomponents.data.source.remote.Api;
-import flatstack.com.roomarchcomponents.data.source.remote.util.JsonApiConverterFactory;
 import flatstack.com.roomarchcomponents.screens.UserListViewModel;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -29,7 +28,6 @@ public class App extends Application {
     private void initialize() {
         retrofit = new Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(JsonApiConverterFactory.create())
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .build();
         api = retrofit.create(Api.class);
@@ -53,7 +51,7 @@ public class App extends Application {
         // Use the InitializerBuilder to generate an Initializer
         Stetho.Initializer initializer = initializerBuilder.build();
 
-        // Initialize Stetho with the Initializer
+        // Initialize Stetho
         Stetho.initialize(initializer);
     }
 

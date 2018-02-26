@@ -1,5 +1,9 @@
 package flatstack.com.roomarchcomponents.screens;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,7 +25,13 @@ public class UserListFragment extends BaseFragment {
         = ((App) getContext().getApplicationContext()).getUserListViewModel();
 
     @Override protected ActivityInfo getActivityInfo() {
-        return new ActivityInfo(R.layout.fragment_main);
+        return new ActivityInfo(R.layout.fragment_user_list);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_user_list, container, false);
     }
 
     @Override public void onStart() {
@@ -41,6 +51,6 @@ public class UserListFragment extends BaseFragment {
 
     private void showEror(Throwable error) {
         Toast.makeText(getActivity(),
-            "cant load users" + error.getMessage(), Toast.LENGTH_LONG).show();
+            "can't load users" + error.getMessage(), Toast.LENGTH_LONG).show();
     }
 }
