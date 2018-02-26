@@ -33,7 +33,7 @@ public class UserRepository {
 
     private Observable<List<User>> getUsersFromApi() {
         return api.getUsers()
-            .doOnNext(this::cacheUsers);
+            .doOnNext(users -> cacheUsers(users));
     }
 
     private void cacheUsers(List<User> users) {

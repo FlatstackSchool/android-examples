@@ -11,6 +11,7 @@ import flatstack.com.roomarchcomponents.data.source.remote.Api;
 import flatstack.com.roomarchcomponents.screens.UserListViewModel;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class App extends Application {
 
@@ -28,10 +29,11 @@ public class App extends Application {
     private void initialize() {
         retrofit = new Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create())
             .baseUrl("https://jsonplaceholder.typicode.com/")
             .build();
         api = retrofit.create(Api.class);
-        appDatabase = Room.databaseBuilder(getApplicationContext(),
+        appDatabase = Room.databaseBuilder(this,
             AppDatabase.class, "app-database").build();
         userRepository = new UserRepository(api, appDatabase.userDAO());
         userListViewModel = new UserListViewModel(userRepository);
