@@ -22,16 +22,10 @@ public class UserListFragment extends BaseFragment {
     @BindView(R.id.lv_users) ListView uiUsersLv;
 
     private UserListViewModel viewModel
-        = ((App) getContext().getApplicationContext()).getUserListViewModel();
+        = ((App) getActivity().getApplicationContext()).getUserListViewModel();
 
     @Override protected ActivityInfo getActivityInfo() {
         return new ActivityInfo(R.layout.fragment_user_list);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_user_list, container, false);
     }
 
     @Override public void onStart() {
@@ -45,7 +39,7 @@ public class UserListFragment extends BaseFragment {
     }
 
     private void showUsers(List<User> users) {
-        uiUsersLv.setAdapter(new ArrayAdapter<User>(getContext(),
+        uiUsersLv.setAdapter(new ArrayAdapter<User>(getActivity(),
             android.R.layout.simple_list_item_1, users));
     }
 
