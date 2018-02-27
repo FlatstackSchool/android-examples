@@ -45,8 +45,9 @@ public class UserListActivity extends Activity {
     }
 
     private void showUsers(List<User> users) {
-        uiUsersLv.setAdapter(new ArrayAdapter<User>(this,
-            android.R.layout.simple_list_item_1, users));
+        if (!users.isEmpty())
+            uiUsersLv.setAdapter(new ArrayAdapter<User>(this,
+                android.R.layout.simple_list_item_1, users));
     }
 
     private void showEror(Throwable error) {

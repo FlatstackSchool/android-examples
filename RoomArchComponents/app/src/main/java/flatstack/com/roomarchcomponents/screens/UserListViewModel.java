@@ -22,7 +22,6 @@ public class UserListViewModel {
 
     public Observable<List<User>> getUsers() {
         return userRepository.getUsers()
-            .debounce(400, TimeUnit.MILLISECONDS)
             .map(users -> {
                 // Prepare the data for your UI, the users list
                 // and maybe some additional data needed as well
