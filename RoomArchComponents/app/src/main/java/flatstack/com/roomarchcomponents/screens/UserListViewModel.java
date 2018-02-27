@@ -29,8 +29,7 @@ public class UserListViewModel {
             }).onErrorReturn(throwable -> {
                 Log.e("Error","Something went wrong" + throwable);
                 return new ArrayList<User>();
-            })
-            ;
+            });
     }
 
 }
