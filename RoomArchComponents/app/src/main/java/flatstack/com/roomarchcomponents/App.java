@@ -37,25 +37,9 @@ public class App extends Application {
             AppDatabase.class, "app-database").build();
         userRepository = new UserRepository(api, appDatabase.userDAO());
         userListViewModel = new UserListViewModel(userRepository);
-        initializeStetho();
+        Stetho.initializeWithDefaults(this);
     }
 
-    private void initializeStetho() {
-        // Create an InitializerBuilder
-        Stetho.InitializerBuilder initializerBuilder =
-            Stetho.newInitializerBuilder(this);
-
-        // Enable Chrome DevTools
-        initializerBuilder.enableWebKitInspector(
-            Stetho.defaultInspectorModulesProvider(this)
-        );
-
-        // Use the InitializerBuilder to generate an Initializer
-        Stetho.Initializer initializer = initializerBuilder.build();
-
-        // Initialize Stetho
-        Stetho.initialize(initializer);
-    }
 
     public Retrofit getRetrofit() {
         return retrofit;
